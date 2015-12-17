@@ -19,13 +19,13 @@ public class Button extends JButton implements MouseListener{
 
 	/**
 	 * Constructeur de bouton
-	 * @param str : nom du fichier de l'icône à ajouter
+	 * @param str : nom du fichier de l'icï¿½ne ï¿½ ajouter pottatoes
 	 */
 	public Button(String str){
 		super(str);
 		this.name = str;
 		try {
-			img = ImageIO.read(getClass().getResource("/"+name+".png")); // ajout de l'icône relative
+			img = ImageIO.read(getClass().getResource("/"+name+".png")); // ajout de l'icï¿½ne relative
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,12 +42,12 @@ public class Button extends JButton implements MouseListener{
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-		GradientPaint gp = new GradientPaint(0, 0, Color.blue, 0, 20, Color.cyan, true); // dégradé de couleur pour le fond du bouton
+		GradientPaint gp = new GradientPaint(0, 0, Color.blue, 0, 20, Color.cyan, true); // dï¿½gradï¿½ de couleur pour le fond du bouton
 		g2d.setPaint(gp);
 		img.getScaledInstance(2, 2, Image.SCALE_DEFAULT);
-		g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this); // dessiner l'icône du bouton
-		//g2d.setColor(Color.blue); // sélectionner la couleur
-		//g2d.drawString(this.name, this.getWidth() / 2 - (this.getWidth() /  2 /4), (this.getHeight() / 2) + 5); // écrire le nom du bouton (juste pour tester, car l'affichage d'icône ne marche pas)
+		g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this); // dessiner l'icï¿½ne du bouton
+		//g2d.setColor(Color.blue); // sï¿½lectionner la couleur
+		//g2d.drawString(this.name, this.getWidth() / 2 - (this.getWidth() /  2 /4), (this.getHeight() / 2) + 5); // ï¿½crire le nom du bouton (juste pour tester, car l'affichage d'icï¿½ne ne marche pas)
 	}
 
 	//MÃ©thode appelÃ©e lors du clic de souris
