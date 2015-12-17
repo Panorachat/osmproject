@@ -19,7 +19,7 @@ public class Button extends JButton implements MouseListener{
 
 	/**
 	 * Constructeur de bouton
-	 * @param str : nom du fichier de l'ic�ne � ajouter po
+	 * @param str : nom du fichier de l'ic�ne � ajouter pol
 	 */
 	public Button(String str){
 		super(str);
