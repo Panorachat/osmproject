@@ -65,6 +65,7 @@ public class Surface extends JPanel implements ActionListener {
                 draw(g2d, n1, n2);
             }
         }
+        repaint();
     }
     public double getScale(){
     	return this.scale;
@@ -125,7 +126,7 @@ public class Surface extends JPanel implements ActionListener {
    * @version 1.0
    */
     public void actionPerformed(ActionEvent e) {
-        repaint();
+       // repaint();
     }
     
     public void colorWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2) {

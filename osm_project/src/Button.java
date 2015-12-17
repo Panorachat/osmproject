@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.IOException; 
 
 import javax.imageio.ImageIO;
@@ -25,7 +26,7 @@ public class Button extends JButton implements MouseListener{
 		super(str);
 		this.name = str;
 		try {
-			img = ImageIO.read(getClass().getResource("/"+name+".png")); // ajout de l'ic�ne relative
+			img = ImageIO.read(new File(name+".png")); // ajout de l'ic�ne relative
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
