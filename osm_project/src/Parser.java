@@ -11,7 +11,7 @@ public class Parser {
 	static org.jdom2.Document document;
 	static Element racine; //Commentaire de mounir tellement bien qu'il mérite une update
 	public static ArrayList<Node> Nodes =getAllNode();//Un autre commentaire trop bien
-	public static ArrayList<Way> Ways =getAllWay();
+	public static ArrayList<Way> Ways =getAllWay(); // Test 3
 
 	/**
 	*Function which return the limits/bounds of map
