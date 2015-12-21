@@ -10,7 +10,7 @@ public class Parser {
 
 	static org.jdom2.Document document;
 	static Element racine;
-	public static ArrayList<Node> Nodes =getAllNode();
+	public static ArrayList<Node> Nodes =getAllNode();//Hidden commentary
 	public static ArrayList<Way> Ways =getAllWay(); 
 
 	/**
