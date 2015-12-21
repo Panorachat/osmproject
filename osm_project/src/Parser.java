@@ -9,7 +9,7 @@ import org.jdom2.input.SAXBuilder;
 public class Parser {
 
 	static org.jdom2.Document document;
-	static Element racine;
+	static Element racine; //Commentaire de mounir tellement bien qu'il mérite une update
 	public static ArrayList<Node> Nodes =getAllNode();
 	public static ArrayList<Way> Ways =getAllWay();
 
