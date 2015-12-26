@@ -61,5 +61,4 @@ public class Way {
     public int getValueSize() {
         return this.valueList.size();
     }
-
 }

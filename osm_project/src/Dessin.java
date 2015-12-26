@@ -4,7 +4,6 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
-
 /**
  * Classe Graphique qui se charge du dessin
  * @author Paul Pastor

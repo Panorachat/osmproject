@@ -23,7 +23,57 @@ public class Surface extends JPanel implements ActionListener {
   String value = "";
   Node n1, n2;
   
-    private void doDrawing(Graphics g) {
+    public double getScale(){
+    	return this.scale;
+    }
+    public void zoom(double factor){
+    	if(this.scale > 10){
+    		this.scale = 10;
+    	}
+    	else if(this.scale < 0){
+    		this.scale = 0;
+    	}
+    	else{
+        	this.scale=this.scale+factor;
+
+    	}
+    }
+    public void setScale(double x){
+    	this.scale=x;
+    }
+    /*private void drawImage(Graphics g2d, Node n){
+    	g2d.drawImage(pi, (int)getPosition(n.getLat(),'x'), (int)getPosition(n.getLon(),'y'), this);
+    }*/
+    private void draw(Graphics2D g2d ,Node n1,Node n2){
+        g2d.draw(new Line2D.Double(getPosition(n2.getLat(),'x'), getPosition(n2.getLon(),'y')
+                , getPosition(n1.getLat(),'x'), getPosition(n1.getLon(),'y')));
+    }
+    /**
+     * Fonction qui retourne les coordonÃ©es formatÃ©es a la taille de la fenetre
+     * @param double CoordonÃ©es 
+     * @param char x(lat) ou y(lon)
+     * @return double
+     * @version 1.0
+     */
+    public double getPosition(double val, char coordonee){
+      if(coordonee=='x'){
+        position=((val-b.getMinLat())/(b.getMaxLat()-b.getMinLat()))*Dessin.res_x*Math.cos(val);
+      }
+      else{
+        position=((val-b.getMinLon())/(b.getMaxLon()-b.getMinLon()))*Dessin.res_y;
+      
+      }
+      return position;
+    }
+
+    /**
+     * Fonction Paint le parametre
+     * @param Graphic
+     * @version 1.0
+     */
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setPaint(Color_Map.background_color.getColor());
         g2d.fillRect(0, 0, 900, 900);
@@ -66,58 +116,6 @@ public class Surface extends JPanel implements ActionListener {
             }
         }
         repaint();
-    }
-    public double getScale(){
-    	return this.scale;
-    }
-    public void zoom(double factor){
-    	if(this.scale > 10){
-    		this.scale = 10;
-    	}
-    	else if(this.scale < 0){
-    		this.scale = 0;
-    	}
-    	else{
-        	this.scale=this.scale+factor;
-
-    	}
-    }
-    public void setScale(double x){
-    	this.scale=x;
-    }
-    private void drawImage(Graphics g2d, Node n){
-    	g2d.drawImage(pi, (int)getPosition(n.getLat(),'x'), (int)getPosition(n.getLon(),'y'), this);
-    }
-    private void draw(Graphics2D g2d ,Node n1,Node n2){
-        g2d.draw(new Line2D.Double(getPosition(n2.getLat(),'x'), getPosition(n2.getLon(),'y')
-                , getPosition(n1.getLat(),'x'), getPosition(n1.getLon(),'y')));
-    }
-    /**
-     * Fonction qui retourne les coordonÃ©es formatÃ©es a la taille de la fenetre
-     * @param double CoordonÃ©es 
-     * @param char x(lat) ou y(lon)
-     * @return double
-     * @version 1.0
-     */
-    public double getPosition(double val, char coordonee){
-      if(coordonee=='x'){
-        position=((val-b.getMinLat())/(b.getMaxLat()-b.getMinLat()))*Dessin.res_x*Math.cos(val);
-      }
-      else{
-        position=((val-b.getMinLon())/(b.getMaxLon()-b.getMinLon()))*Dessin.res_y;
-      
-      }
-      return position;
-    }
-
-    /**
-     * Fonction Paint le parametre
-     * @param Graphic
-     * @version 1.0
-     */
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        doDrawing(g);
     }
 
     /**

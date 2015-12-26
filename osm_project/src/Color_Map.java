@@ -9,7 +9,6 @@ public enum Color_Map {
     // couleur pour "highway" :
     motorway_color(255, 102, 102), trunk_color(255, 153, 102), primary_color(255, 204, 102), secondary_color(255, 255, 102), tertiary_color(224, 224, 224);
 
-    
     //here begins the serious shit
     private final Color tag_color;
 
@@ -20,5 +19,4 @@ public enum Color_Map {
     public Color getColor() {
         return this.tag_color;
     }
-
 }

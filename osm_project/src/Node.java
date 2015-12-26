@@ -1,12 +1,16 @@
-import java.awt.Graphics;
+/*import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
+import java.util.ArrayList;*/
 
 import javax.swing.JPanel;
 public class Node extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private double lon;
 	private double lat;
