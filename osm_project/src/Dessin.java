@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 /**
  * Classe Graphique qui se charge du dessin
- * @author Paul Pastor
+ * @author Moi lol
  * @version 1.0
  * @since 2015
  */

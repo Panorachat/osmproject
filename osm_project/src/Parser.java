@@ -12,7 +12,7 @@ public class Parser {
 	static Element racine;
 	public static ArrayList<Node> Nodes =getAllNode();//Hidden commentary
 	public static ArrayList<Way> Ways =getAllWay(); 
-
+	//J'ajoute un commentaire trop bien que personne ne verra meme pas mounir 
 	/**
 	*Function which return the limits/bounds of map
 	**/
