@@ -18,7 +18,7 @@ public class Surface extends JPanel implements ActionListener {
   Image pi = Toolkit.getDefaultToolkit().getImage("PointInteret.png");
   double position;//Determine postition d'un point
   int r=0;//Nombre de murs
- 
+// Test
   String tag = "";
   String value = "";
   Node n1, n2;

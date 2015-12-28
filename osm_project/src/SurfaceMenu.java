@@ -11,7 +11,7 @@ public final class SurfaceMenu extends JPanel implements ActionListener{
 	private JPanel menuZoom = new JPanel();
 	private JPanel menuSearch = new JPanel();
 	private Dessin ancestor;
-
+// Test
 	/**
 	 * Menu zoom qui contient les 2 boutons de zoom
 	 */
