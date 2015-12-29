@@ -14,11 +14,15 @@ import java.awt.Stroke;
 public class Surface extends JPanel implements ActionListener {
   private static final long serialVersionUID = 1L;//Lol
   static private Bound b = new Bound();
+  
   private double scale = 5;
+  private final double MINSCALE = 1; // Minimal zoom
+  private final double MAXSCALE = 10; // Maximal zoom
+  private final double SCALESTEP = 0.4d; // Value of zoom increment
+  
   Image pi = Toolkit.getDefaultToolkit().getImage("PointInteret.png");
   double position;//Determine postition d'un point
   int r=0;//Nombre de murs
-// Test
   String tag = "";
   String value = "";
   Node n1, n2;
@@ -26,18 +30,7 @@ public class Surface extends JPanel implements ActionListener {
     public double getScale(){
     	return this.scale;
     }
-    public void zoom(double factor){
-    	if(this.scale > 10){
-    		this.scale = 10;
-    	}
-    	else if(this.scale < 0){
-    		this.scale = 0;
-    	}
-    	else{
-        	this.scale=this.scale+factor;
 
-    	}
-    }
     public void setScale(double x){
     	this.scale=x;
     }
@@ -177,5 +170,25 @@ public class Surface extends JPanel implements ActionListener {
 
         }
     }
+    
+    public void zoom(boolean BUTTONVALUE){
+    	// Using zoom limits values
+    	if(this.scale >= MAXSCALE && BUTTONVALUE){
+    		this.scale = MAXSCALE;
+    	}
+    	else if(this.scale <= MINSCALE && !BUTTONVALUE){
+    		this.scale = MINSCALE;
+    	}
+    	else{
+    		// Zoom/unzoom
+        	if(BUTTONVALUE){
+            	this.scale = this.scale + SCALESTEP;
+        	}
+        	else{
+            	this.scale = this.scale - SCALESTEP;
+        	}
+    	}
+    }
 
 }
+//

@@ -48,14 +48,14 @@ public final class SurfaceMenu extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		double zoomButtonValue;
+		boolean zoomButtonValue;
 		String buttonLabel = evt.getActionCommand();
 		switch (buttonLabel){
 		case "more":
-			zoomButtonValue = 1;
+			zoomButtonValue = true;
 			break;
 		case "less":
-			zoomButtonValue = -1;
+			zoomButtonValue = false;
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid button label: " + buttonLabel);
