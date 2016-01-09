@@ -12,7 +12,7 @@ import java.awt.Toolkit;
 import java.awt.Stroke;
 
 public class Surface extends JPanel implements ActionListener {
-  private static final long serialVersionUID = 1L;//Lol
+  private static final long serialVersionUID = 1L;
   static private Bound b = new Bound();
   
   private double ZOOM = 5;
@@ -188,7 +188,6 @@ public class Surface extends JPanel implements ActionListener {
             	this.ZOOM = this.ZOOM - ZOOMSTEP;
         	}
     	}
-//    	this.ZOOM = 1 + this.ZOOM/10; 
     }
 
 }

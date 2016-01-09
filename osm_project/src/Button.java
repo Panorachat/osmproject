@@ -12,7 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
-public class Button extends JButton implements MouseListener{
+public class Button extends JButton{
 
 	private static final long serialVersionUID = 1L;
 	private String name;
@@ -31,8 +31,6 @@ public class Button extends JButton implements MouseListener{
 			e.printStackTrace();
 		}
 		
-		
-		//this.addMouseListener(this);
 	}
 
 	/**
@@ -47,12 +45,5 @@ public class Button extends JButton implements MouseListener{
 		g2d.setPaint(gp);
 		img.getScaledInstance(2, 2, Image.SCALE_DEFAULT);
 		g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-		
-		
-	}
-	public void mouseClicked(MouseEvent event) { }
-	public void mouseEntered(MouseEvent event) { }
-	public void mouseExited(MouseEvent event) { }
-	public void mousePressed(MouseEvent event) { }
-	public void mouseReleased(MouseEvent event) { }       
+	}   
 }

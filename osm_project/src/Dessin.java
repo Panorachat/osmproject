@@ -14,9 +14,9 @@ public class Dessin extends JFrame implements MouseMotionListener {
     private static final long serialVersionUID = 1L;//Aucune idée mais y'a plus d'erreurs
     protected final static int res_x=900;//lat
     protected final static int res_y=900;//lon
-    protected double zoom=2;
     private Surface map;
     private SurfaceMenu UI;
+    private ScaleBar SB;
     
     public Dessin() {
         initUI();
@@ -29,14 +29,18 @@ public class Dessin extends JFrame implements MouseMotionListener {
     private void initUI() {
         this.setMap(new Surface());
         this.UI = new SurfaceMenu(this);
+        this.SB = new ScaleBar(this);
+        this.add(SB);
         setLayout(new BorderLayout());
         getContentPane().add(getMap(), BorderLayout.CENTER);
         getContentPane().add(UI, BorderLayout.NORTH);
+
         setTitle("Map");
         setSize(res_x, res_y);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     
 	public Surface getMap() {
 		return map;
