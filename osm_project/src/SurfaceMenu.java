@@ -62,6 +62,6 @@ public final class SurfaceMenu extends JPanel implements ActionListener{
 		}
 		this.ancestor.getMap().zoom(zoomButtonValue);
 		System.out.println("zoom : " + zoomButtonValue);
-		System.out.println("scale : " + this.ancestor.getMap().getScale());
+		System.out.println("scale : " + this.ancestor.getMap().getZoom());
 	}
 }

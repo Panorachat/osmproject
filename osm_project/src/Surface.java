@@ -15,10 +15,10 @@ public class Surface extends JPanel implements ActionListener {
   private static final long serialVersionUID = 1L;//Lol
   static private Bound b = new Bound();
   
-  private double scale = 5;
-  private final double MINSCALE = 1; // Minimal zoom
-  private final double MAXSCALE = 10; // Maximal zoom
-  private final double SCALESTEP = 0.4d; // Value of zoom increment
+  private double ZOOM = 5;
+  private final double MINZOOM = 1; // Minimal zoom
+  private final double MAXZOOM = 10; // Maximal zoom
+  private final double ZOOMSTEP = 0.4d; // Value of zoom increment
   
   Image pi = Toolkit.getDefaultToolkit().getImage("PointInteret.png");
   double position;//Determine postition d'un point
@@ -27,12 +27,12 @@ public class Surface extends JPanel implements ActionListener {
   String value = "";
   Node n1, n2;
   
-    public double getScale(){
-    	return this.scale;
+    public double getZoom(){
+    	return this.ZOOM;
     }
 
-    public void setScale(double x){
-    	this.scale=x;
+    public void setZoom(double x){
+    	this.ZOOM=x;
     }
     /*private void drawImage(Graphics g2d, Node n){
     	g2d.drawImage(pi, (int)getPosition(n.getLat(),'x'), (int)getPosition(n.getLon(),'y'), this);
@@ -75,7 +75,7 @@ public class Surface extends JPanel implements ActionListener {
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setPaint(Color.gray);
-        g2d.scale(1+scale/10, 1+scale/10);
+        g2d.scale(ZOOM, ZOOM);
         Stroke s = g2d.getStroke();
         //g2d.drawImage(pi,10,10,this);
         //Parcour de la liste des way
@@ -173,21 +173,22 @@ public class Surface extends JPanel implements ActionListener {
     
     public void zoom(boolean BUTTONVALUE){
     	// Using zoom limits values
-    	if(this.scale >= MAXSCALE && BUTTONVALUE){
-    		this.scale = MAXSCALE;
+    	if(this.ZOOM >= MAXZOOM && BUTTONVALUE){
+    		this.ZOOM = MAXZOOM;
     	}
-    	else if(this.scale <= MINSCALE && !BUTTONVALUE){
-    		this.scale = MINSCALE;
+    	else if(this.ZOOM <= MINZOOM && !BUTTONVALUE){
+    		this.ZOOM = MINZOOM;
     	}
     	else{
     		// Zoom/unzoom
         	if(BUTTONVALUE){
-            	this.scale = this.scale + SCALESTEP;
+            	this.ZOOM = this.ZOOM + ZOOMSTEP;
         	}
         	else{
-            	this.scale = this.scale - SCALESTEP;
+            	this.ZOOM = this.ZOOM - ZOOMSTEP;
         	}
     	}
+//    	this.ZOOM = 1 + this.ZOOM/10; 
     }
 
 }
