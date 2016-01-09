@@ -30,10 +30,10 @@ public class Dessin extends JFrame implements MouseMotionListener {
         this.setMap(new Surface());
         this.UI = new SurfaceMenu(this);
         this.SB = new ScaleBar(this);
-        this.add(SB);
         setLayout(new BorderLayout());
         getContentPane().add(getMap(), BorderLayout.CENTER);
         getContentPane().add(UI, BorderLayout.NORTH);
+        //getContentPane().add(SB);
 
         setTitle("Map");
         setSize(res_x, res_y);

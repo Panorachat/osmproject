@@ -1,5 +1,4 @@
-import java.awt.Color;
-import java.awt.GradientPaint;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -27,15 +26,18 @@ public class ScaleBar extends JPanel{
 			e.printStackTrace();
 		}
 		this.barWidth = (window.getSize().width) / 10;
-		this.barHeight = (window.getSize().height)/20;
-		this.setBounds((window.getSize().width) / 10, (window.getSize().height) * 9/10, this.barWidth, this.barHeight);
+		this.barHeight = (window.getSize().height)/30;
+		this.setLocation(100, 100);
+//		this.setSize(this.barWidth, this.barHeight);
+//		this.setLocation(this.ancestor.getWidth() * (9/10), this.ancestor.getHeight() * (1/10));
+		//this.setBounds((window.getSize().width) / 10, (window.getSize().height) * 9/10, this.barWidth, this.barHeight);
 	}
 	
 	public void paintComponent(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g.create();
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+		super.paintComponent(g);
+//		Graphics2D g2d = (Graphics2D) g.create();
+//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+//		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		
-		g2d.drawImage(img, (this.ancestor.getSize().width) / 10, (this.ancestor.getSize().height) * 9/10, this.barWidth, this.barHeight, this);
 	}   
 }
