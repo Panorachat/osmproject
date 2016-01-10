@@ -1,8 +1,10 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 
 /**
  * Classe Graphique qui se charge du dessin
@@ -14,9 +16,12 @@ public class Dessin extends JFrame implements MouseMotionListener {
     private static final long serialVersionUID = 1L;//Aucune idée mais y'a plus d'erreurs
     protected final static int res_x=900;//lat
     protected final static int res_y=900;//lon
+    
     private Surface map;
     private SurfaceMenu UI;
     private ScaleBar SB;
+    
+    private JLayeredPane layers; // Pour la superposition des éléments
     
     public Dessin() {
         initUI();
@@ -27,18 +32,31 @@ public class Dessin extends JFrame implements MouseMotionListener {
      * @version 1.0
      */
     private void initUI() {
-        this.setMap(new Surface());
-        this.UI = new SurfaceMenu(this);
-        this.SB = new ScaleBar(this);
-        setLayout(new BorderLayout());
-        getContentPane().add(getMap(), BorderLayout.CENTER);
-        getContentPane().add(SB, BorderLayout.SOUTH);
-        getContentPane().add(UI, BorderLayout.NORTH);
-        
-        
-
+ 
+    	this.layers = new JLayeredPane();
+    	
         setTitle("Map");
         setSize(res_x, res_y);
+        
+    	this.layers = new JLayeredPane();
+    	
+        this.setMap(new Surface());
+        this.layers.add(this.map);
+        this.layers.setLayer(this.map, 0);
+        
+        this.UI = new SurfaceMenu(this);
+        
+        this.SB = new ScaleBar(this);
+        this.layers.add(this.SB);
+        this.layers.setLayer(this.SB, 0);
+        
+        System.out.println(layers.getSize().width);
+
+        setLayout(new BorderLayout());
+        
+        getContentPane().add(layers, BorderLayout.CENTER);
+        getContentPane().add(UI, BorderLayout.NORTH);
+        //this.add(SB);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
