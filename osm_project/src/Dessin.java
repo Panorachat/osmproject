@@ -35,7 +35,7 @@ public class Dessin extends JFrame implements MouseMotionListener {
     	
         setTitle("Map");
         setSize(res_x, res_y);
-    	
+
         this.setMap(new Surface(this));
         this.scaleBar = new ScaleBar(this);
         this.UI = new SurfaceMenu(this);
@@ -64,6 +64,10 @@ public class Dessin extends JFrame implements MouseMotionListener {
 	public void setUI(SurfaceMenu UI) {
 		this.UI = UI;
 	}
+	public ScaleBar getScaleBar(){
+		return this.scaleBar;
+	}
+	
 	@Override
 	public void mouseDragged(MouseEvent evt) {
 		// TODO Auto-generated method stub

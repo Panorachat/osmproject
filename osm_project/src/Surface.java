@@ -28,14 +28,14 @@ public class Surface extends JPanel implements ActionListener {
   String tag = "";
   String value = "";
   Node n1, n2;
-
-  private Dessin ancestor;
+  
+  public Dessin ancestor;
   
   	public Surface(Dessin frame){
   		super();
   		this.ancestor = frame;
   	}
-  
+
     public double getZoom(){
     	return this.ZOOM;
     }
@@ -59,10 +59,10 @@ public class Surface extends JPanel implements ActionListener {
      */
     public double getPosition(double val, char coordonee){
       if(coordonee=='x'){
-        position=((val-b.getMinLat())/(b.getMaxLat()-b.getMinLat()))*Dessin.res_x*Math.cos(val);
+        position=((val-b.getMinLat())/(b.getMaxLat()-b.getMinLat()))*this.ancestor.getSize().width*Math.cos(val);
       }
       else{
-        position=((val-b.getMinLon())/(b.getMaxLon()-b.getMinLon()))*Dessin.res_y;
+        position=((val-b.getMinLon())/(b.getMaxLon()-b.getMinLon()))*this.ancestor.getSize().height;
       
       }
       return position;
