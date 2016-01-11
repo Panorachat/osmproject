@@ -6,10 +6,7 @@ import java.util.ArrayList;*/
 
 import javax.swing.JPanel;
 public class Node extends JPanel {
-//hello world
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private double lon;

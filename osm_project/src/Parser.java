@@ -90,7 +90,7 @@ public class Parser {
 		}
 		return nodeList;
 	}
-	//Retourne l'Ã©lÃ©ment i d'une Liste de node
+	//Retourne l'element i d'une Liste de node
 	public static Node getNode(long i){
 		Node n=new Node();
 		for(int cpt=0;cpt<Nodes.size();cpt++){
