@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
@@ -19,9 +20,8 @@ public class Dessin extends JFrame implements MouseMotionListener {
     
     private Surface map;
     private SurfaceMenu UI;
-    private ScaleBar SB;
+    private ScaleBar scaleBar;
     
-    private JLayeredPane layers; // Pour la superposition des éléments
     
     public Dessin() {
         initUI();
@@ -32,31 +32,20 @@ public class Dessin extends JFrame implements MouseMotionListener {
      * @version 1.0
      */
     private void initUI() {
- 
-    	this.layers = new JLayeredPane();
     	
         setTitle("Map");
         setSize(res_x, res_y);
-        
-    	this.layers = new JLayeredPane();
     	
-        this.setMap(new Surface());
-        this.layers.add(this.map);
-        this.layers.setLayer(this.map, 0);
-        
+        this.setMap(new Surface(this));
+        this.scaleBar = new ScaleBar(this);
         this.UI = new SurfaceMenu(this);
-        
-        this.SB = new ScaleBar(this);
-//        this.layers.add(this.SB);
-//        this.layers.setLayer(this.SB, 0);
-        
-        System.out.println(layers.getSize().width);
 
         setLayout(new BorderLayout());
         
+        getContentPane().add(this.UI, BorderLayout.NORTH);
         getContentPane().add(this.map, BorderLayout.CENTER);
-        getContentPane().add(UI, BorderLayout.NORTH);
-        //this.add(SB);
+
+        
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -26,6 +28,13 @@ public class Surface extends JPanel implements ActionListener {
   String tag = "";
   String value = "";
   Node n1, n2;
+
+  private Dessin ancestor;
+  
+  	public Surface(Dessin frame){
+  		super();
+  		this.ancestor = frame;
+  	}
   
     public double getZoom(){
     	return this.ZOOM;
