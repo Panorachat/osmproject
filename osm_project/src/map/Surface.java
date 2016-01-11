@@ -1,3 +1,4 @@
+package map;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +9,9 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
 import javax.swing.JPanel;
+
+import execution.Dessin;
+
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Stroke;

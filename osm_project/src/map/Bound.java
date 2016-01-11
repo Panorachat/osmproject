@@ -1,3 +1,4 @@
+package map;
 public class Bound {
     private double minLon;
     private double maxLon;

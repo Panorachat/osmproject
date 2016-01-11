@@ -1,8 +1,13 @@
+package execution;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
+
+import GUI.ScaleBar;
+import GUI.SurfaceMenu;
+import map.Surface;
 
 /**
  * Classe Graphique qui se charge du dessin
