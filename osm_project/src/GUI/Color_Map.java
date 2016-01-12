@@ -1,4 +1,4 @@
-package map;
+package GUI;
 import java.awt.Color;
 
 public enum Color_Map {

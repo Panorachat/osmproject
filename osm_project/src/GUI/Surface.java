@@ -11,7 +11,6 @@ import java.awt.geom.Line2D;
 import javax.swing.JPanel;
 
 import map.Bound;
-import map.Color_Map;
 import map.Node;
 import map.Parser;
 import map.Way;
