@@ -53,8 +53,8 @@ public class Surface extends JPanel implements ActionListener {
                 , getPosition(n1.getLat(),'x'), getPosition(n1.getLon(),'y')));
     }
     /**
-     * Fonction qui retourne les coordonÃ©es formatÃ©es a la taille de la fenetre
-     * @param double CoordonÃ©es 
+     * Fonction qui retourne les coordonnes formates a la taille de la fenetre
+     * @param double Coordonnes 
      * @param char x(lat) ou y(lon)
      * @return double
      * @version 1.0
@@ -95,7 +95,7 @@ public class Surface extends JPanel implements ActionListener {
         	GeneralPath figure = new GeneralPath();
         	r = 0;
         	for(int ri=1;ri<Parser.Ways.get(wi).getRefSize();ri++){
-              //Get longitude 1 et coordonÃƒÂ©es du 2nd point 	
+              //Get longitude 1 et coordonnes du 2nd point 	
         		 n1 = Parser.getNode(Parser.Ways.get(wi).getRef(ri - 1));
                  n2 = Parser.getNode(Parser.Ways.get(wi).getRef(ri));
                  if (r == 0) {

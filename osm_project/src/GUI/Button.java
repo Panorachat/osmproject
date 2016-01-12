@@ -25,7 +25,7 @@ public class Button extends JButton{
 		super(str);
 		this.name = str;
 		try {
-			img = ImageIO.read(new File(name+".png"));
+			img = ImageIO.read(new File("img/"+name+".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

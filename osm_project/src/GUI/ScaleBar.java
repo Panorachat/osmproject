@@ -24,7 +24,7 @@ public class ScaleBar extends JPanel{
 	
 	public ScaleBar(Dessin window){
 		try {
-			this.img = ImageIO.read(new File("scaleBar.png"));
+			this.img = ImageIO.read(new File("img/scaleBar.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -111,7 +111,7 @@ public class Parser {
 		{
 			//Creating of a new document JDOM with XML file as an argument
 			//From here the parsing is over
-			document = sxb.build(new File("map.osm"));
+			document = sxb.build(new File("osm_file/map.osm"));
 		}
 		catch(Exception e){}
 		//Initializing a new root element with document root element.

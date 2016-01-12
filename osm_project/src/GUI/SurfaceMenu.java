@@ -23,7 +23,7 @@ public final class SurfaceMenu extends JPanel implements ActionListener{
 		more.addActionListener(this);
 		Button less = new Button("less");
 		less.addActionListener(this);
-		menuZoom.setLayout(new BorderLayout()); // ajout du layout manager qui permet la disposition des �l�ments NORTH, SOUTH, CENTER, EAST ou WEST
+		menuZoom.setLayout(new BorderLayout()); // ajout du layout manager qui permet la disposition des elements NORTH, SOUTH, CENTER, EAST ou WEST
 		menuZoom.add(more, BorderLayout.WEST);
 		menuZoom.add(less, BorderLayout.EAST);
 	}
@@ -44,8 +44,8 @@ public final class SurfaceMenu extends JPanel implements ActionListener{
 		initMenuSearchButtons();
 		new JPanel(new BorderLayout());
 		setLayout(new BorderLayout());
-		add(menuZoom, BorderLayout.WEST); // ajout du zoom � la surface nord ouest de la fen�tre
-		add(menuSearch, BorderLayout.EAST); // ajout de la zone de recherche � la surface nord est de la fen�tre
+		add(menuZoom, BorderLayout.WEST); // ajout du zoom a la surface nord ouest de la fenetre
+		add(menuSearch, BorderLayout.EAST); // ajout de la zone de recherche a la surface nord est de la fenetre
 		this.ancestor = frame;
 	}
 
