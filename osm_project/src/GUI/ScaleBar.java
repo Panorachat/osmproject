@@ -10,8 +10,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import execution.Dessin;
-
 public class ScaleBar extends JPanel{
 
 	private static final long serialVersionUID = 1L;

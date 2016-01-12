@@ -1,4 +1,4 @@
-package map;
+package GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,7 +10,11 @@ import java.awt.geom.Line2D;
 
 import javax.swing.JPanel;
 
-import execution.Dessin;
+import map.Bound;
+import map.Color_Map;
+import map.Node;
+import map.Parser;
+import map.Way;
 
 import java.awt.Image;
 import java.awt.Toolkit;

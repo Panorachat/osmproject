@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 public class Parser {
 
-	static org.jdom2.Document document;
+	static Document document;
 	static Element racine;
 	public static ArrayList<Node> Nodes =getAllNode();//Hidden commentary
 	public static ArrayList<Way> Ways =getAllWay(); 

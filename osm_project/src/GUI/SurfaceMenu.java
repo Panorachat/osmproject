@@ -7,8 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import execution.Dessin;
-
 public final class SurfaceMenu extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JPanel menuZoom = new JPanel();
