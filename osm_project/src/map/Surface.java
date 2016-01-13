@@ -1,4 +1,4 @@
-package GUI;
+package map;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,10 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import map.Bound;
-import map.Node;
-import map.Parser;
-import map.Way;
+import GUI.Dessin;
 
 import java.awt.Image;
 import java.awt.Stroke;
@@ -28,8 +25,8 @@ public class Surface extends JPanel implements ActionListener {
 	private final double MINZOOM = 1; // Minimal zoom
 	private final double MAXZOOM = 10; // Maximal zoom
 	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
+	double position;//Determine position d'un point
 
-	double position;//Determine postition d'un point
 	int r=0;//Nombre de murs
 	String tag = "";
 	String value = "";
@@ -72,8 +69,7 @@ public class Surface extends JPanel implements ActionListener {
 
 		}
 		return position;
-	}
-
+	}	
 	/**
 	 * Fonction Paint le parametre
 	 * @param Graphic
@@ -85,14 +81,12 @@ public class Surface extends JPanel implements ActionListener {
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setPaint(Color_Map.background_color.getColor());
 		g2d.fillRect(0, 0, 900, 900);
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
-				RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setPaint(Color.gray);
 		g2d.scale(ZOOM, ZOOM);
 		Stroke s = g2d.getStroke();
-		//g2d.drawImage(pi,10,10,this);
+		//g2d.drawImage(loadInterestPointIMG(),10,10,this);
 		//Parcour de la liste des way
 		for(int wi=0;wi<Parser.Ways.size();wi++){
 			//Parcours de la liste des "ref" contenues dans les way
@@ -168,21 +162,26 @@ public class Surface extends JPanel implements ActionListener {
 					g2d.setPaint(Color_Map.tertiary_color.getColor());
 					g2d.fill(figure);
 					break;
+				case "pedestrian"  :
+					g2d.setPaint(Color_Map.pedestrian_color.getColor());
+					g2d.fill(figure);
+					break;					
+				case "residential"  :
+					g2d.setPaint(Color_Map.residential_color.getColor());
+					g2d.fill(figure);
+					break;					
 				case "unclassified":
 					g2d.setPaint(Color_Map.tertiary_color.getColor());
 					g2d.fill(figure);
 					break;
 				}
-
-
 				break;
 
 			case "name":
-				//g2d.setPaint(Color.BLACK);
-				//g2d.drawString(value, (float) getPosition(n1.getLat(), 'x'), (float) getPosition(n1.getLon(), 'y'));
+				g2d.setPaint(Color.BLACK);
+				g2d.drawString(value, (float) getPosition(n1.getLat(), 'x'), (float) getPosition(n1.getLon(), 'y'));
 				break;
 			}
-
 		}
 	}
 
@@ -205,13 +204,14 @@ public class Surface extends JPanel implements ActionListener {
 		}
 	}
 
-	public void drawInterestPoint(){
+	public Image loadInterestPointIMG(){
 		try {
 			Image pi = ImageIO.read(new File("img/PointInteret.png"));
+			return pi;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		return null;
 	}
 }
 //

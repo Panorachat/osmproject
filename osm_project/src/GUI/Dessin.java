@@ -5,6 +5,8 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
+import map.Surface;
+
 /**
  * Classe Graphique qui se charge du dessin
  * @author Moi lol
@@ -19,8 +21,7 @@ public class Dessin extends JFrame implements MouseMotionListener {
     private Surface map;
     private SurfaceMenu UI;
     private ScaleBar scaleBar;
-    
-    
+
     public Dessin() {
         initUI();
         map.addMouseMotionListener(this);
@@ -77,6 +78,5 @@ public class Dessin extends JFrame implements MouseMotionListener {
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 }
