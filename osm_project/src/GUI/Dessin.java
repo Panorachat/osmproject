@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  * @since 2015
  */
 public class Dessin extends JFrame implements MouseMotionListener {
-    private static final long serialVersionUID = 1L;//Aucune idée mais y'a plus d'erreurs
+    private static final long serialVersionUID = 1L;
     protected final static int res_x=900;//lat
     protected final static int res_y=900;//lon
 
