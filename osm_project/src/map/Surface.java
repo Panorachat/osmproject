@@ -92,7 +92,8 @@ public class Surface extends JPanel implements ActionListener {
 			//Parcours de la liste des "ref" contenues dans les way
 			GeneralPath figure = new GeneralPath();
 			r = 0;
-			for(int ri=1;ri<Parser.Ways.get(wi).getRefSize();ri++){
+			int ri;
+			for(ri=1;ri<Parser.Ways.get(wi).getRefSize();ri++){
 				//Get longitude 1 et coordonnes du 2nd point 	
 				n1 = Parser.getNode(Parser.Ways.get(wi).getRef(ri - 1));
 				n2 = Parser.getNode(Parser.Ways.get(wi).getRef(ri));
@@ -109,6 +110,9 @@ public class Surface extends JPanel implements ActionListener {
 
 				//draw(g2d, p.getNode(p.Ways.get(wi).getRef(ri-1)),p.getNode(p.Ways.get(wi).getRef(ri)));
 			}
+			/*if(Parser.Ways.get(wi).getRef(0)==Parser.Ways.get(wi).getRef(ri-1)){
+				drawBuildingString(g2d, Parser.Ways.get(wi));
+			}*/
 		}
 		for (int wi = 0; wi < Parser.Ways.size(); wi++) {
 			for (int ri = 1; ri < Parser.Ways.get(wi).getRefSize(); ri++) {
@@ -119,7 +123,12 @@ public class Surface extends JPanel implements ActionListener {
 		}
 		repaint();
 	}
-
+	/*public void drawBuildingString(Graphics2D g2d, Way w){
+		g2d.setPaint(Color.BLACK);
+		Node nd1 = Parser.getNode(w.getRef(0));
+		Node nd2 = Parser.getNode(w.getRef(w.getRefSize()-1));
+		g2d.drawString(value, (float) getPosition((nd1.getLat()+nd2.getLat())/2, 'x'), (float) getPosition((nd1.getLon()+nd2.getLon())/2, 'y'));
+	}*/
 	/**
 	 * Constructeur de l'objet Compte.
 	 * @param ActionEvent 
@@ -130,7 +139,7 @@ public class Surface extends JPanel implements ActionListener {
 	}
 
 	public void colorWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2) {
-		for (int i = 0; i < w.getTagSize(); i++) {
+		for (int i = 0; i < w.getTagSize()-1; i++) {
 			tag = w.getTag(i);
 			value = w.getValue(i);
 			switch (tag) {
@@ -178,8 +187,9 @@ public class Surface extends JPanel implements ActionListener {
 				break;
 
 			case "name":
-				g2d.setPaint(Color.BLACK);
-				g2d.drawString(value, (float) getPosition(n1.getLat(), 'x'), (float) getPosition(n1.getLon(), 'y'));
+				// if(value != w.getValue(i)+1)
+					g2d.setPaint(Color.BLACK);
+					g2d.drawString(value, (float) getPosition((n1.getLat()+n2.getLat())/2, 'x'), (float) getPosition((n1.getLon()+n2.getLon())/2, 'y'));
 				break;
 			}
 		}

@@ -7,6 +7,8 @@ public class Way {
     private ArrayList<String> valueList = new ArrayList<String>();
     private ArrayList<Long> refList = new ArrayList<Long>();
 
+    public Way(){}
+    
     public Way(long id) {
         this.id = id;
     }
