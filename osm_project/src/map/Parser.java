@@ -14,6 +14,7 @@ public class Parser {
 	static Element racine;
 	public static ArrayList<Node> Nodes =getAllNode();//Hidden commentary
 	public static ArrayList<Way> Ways =getAllWay(); 
+	ArrayList<String> ListeTag = new ArrayList<String>();
 	/**
 	*Function which return the limits/bounds of map
 	**/
@@ -55,19 +56,25 @@ public class Parser {
 		Iterator<Element> i = listWay.iterator();
 		while(i.hasNext()){
 			Element courant = (Element)i.next();
-			Way way = new Way(Long.valueOf((courant.getAttributeValue("id"))));
+			
+			List<Element> listTag = courant.getChildren("tag");
+			Iterator<Element> tag = listTag.iterator();
+			ArrayList<String> ListeTag = new ArrayList<String>();
+			while(tag.hasNext()){
+				Element Tagcourant = (Element)tag.next();
+				ListeTag.add(Tagcourant.getAttributeValue("k"));
+			}
+			
+			Way way = new Way(Long.valueOf((courant.getAttributeValue("id"))),ListeTag);
+			ListeTag=null;
 			List<Element> listRef = courant.getChildren("nd");
 			Iterator<Element> ref = listRef.iterator();
 			while(ref.hasNext()){
 				Element refcourant = (Element)ref.next();
 				way.addRef(Long.valueOf(refcourant.getAttributeValue("ref")));
 			}
-			List<Element> listTag = courant.getChildren("tag");
-			Iterator<Element> tag = listTag.iterator();
-			while(tag.hasNext()){
-				Element Tagcourant = (Element)tag.next();
-				way.addTag(Tagcourant.getAttributeValue("k"));
-			}
+
+		
 			List<Element> listValue = courant.getChildren("tag");
             Iterator<Element> value = listValue.iterator();
             while(value.hasNext()) {

@@ -8,20 +8,21 @@ public class Way {
 	private ArrayList<Long> refList = new ArrayList<Long>();
 	private int altitude = 0;
 
-	public Way(long id) {
+	public Way(long id, ArrayList<String> tagin) {
 		this.id = id;
 		String tag = "";
-		tag = this.getTag(0);
-		switch (tag) {
-		case "building":
-			this.altitude = 1;
-			break;
-		case "wall":
-			this.altitude = 1;
-			break;
+		if(contient("building",tagin)|| contient("wall",tagin)){
+			this.altitude=1;
 		}
 	}
-
+	public boolean contient(String str , ArrayList<String> tag){
+		for(int i=0;i<tag.size();i++){
+			if(tag.get(i)==str){
+				return true;
+			}
+		}
+		return false;
+	}
 	public void addRef(long ref) {
 		this.refList.add(ref);
 	}
