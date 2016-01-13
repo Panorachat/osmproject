@@ -17,7 +17,7 @@ import GUI.Dessin;
 
 import java.awt.Image;
 import java.awt.Stroke;
-
+//lol
 public class Surface extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	static private Bound b = new Bound();
