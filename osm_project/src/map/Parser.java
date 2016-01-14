@@ -21,8 +21,8 @@ public class Parser {
 	 * Constructeur de la fonction Parser
 	 */
 	public Parser(){
-		this.Nodes=getAllNode();
-		this.Ways=getAllWay();
+		Parser.Nodes=getAllNode();
+		Parser.Ways=getAllWay();
 	}
 	
 	
@@ -31,7 +31,7 @@ public class Parser {
 	 * @return ArrayList<Node>
 	 */
 	public ArrayList<Node> getNodes(){
-		return this.Nodes;
+		return Parser.Nodes;
 	}
 	
 	
@@ -40,7 +40,7 @@ public class Parser {
 	 * @return ArrayList<Way>
 	 */
 	public ArrayList<Way> getWays(){
-		return this.Ways;
+		return Parser.Ways;
 	}
 	
 	
