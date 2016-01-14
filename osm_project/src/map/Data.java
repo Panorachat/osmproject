@@ -3,7 +3,7 @@ package map;
 
 
 public class Data {
-
+/*
 	public Way data[] = new Way[Parser.getAllWay().size()];
 	
 	public Data() {
@@ -20,5 +20,5 @@ public class Data {
         		i++;
         	}
         }
-	}
+	}*/
 }

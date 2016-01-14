@@ -20,6 +20,7 @@ import java.awt.Stroke;
 
 public class Surface extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
+	Parser p = new Parser();
 	static private Bound b = new Bound();
 	private double ZOOM = 5;
 	private final double MINZOOM = 1; // Minimal zoom
@@ -88,24 +89,24 @@ public class Surface extends JPanel implements ActionListener {
 		Stroke s = g2d.getStroke();
 		//g2d.drawImage(loadInterestPointIMG(),10,10,this);
 		//Parcour de la liste des way
-		for (int wi = 0; wi < Parser.Ways.size(); wi++) {
+		for (int wi = 0; wi < p.getWays().size(); wi++) {
 			GeneralPath figure = new GeneralPath();
 			r = 0;
 			// Parcours de la liste des "ref" contenues dans les way
-			for (int ri = 1; ri < Parser.Ways.get(wi).getRefSize(); ri++) {
+			for (int ri = 1; ri < p.getWays().get(wi).getRefSize(); ri++) {
 				// Get longitude 1 et coordonÃƒÂ©es du 2nd point
-				n1 = Parser.getNode(Parser.Ways.get(wi).getRef(ri - 1));
-				n2 = Parser.getNode(Parser.Ways.get(wi).getRef(ri));
+				n1 = p.getNode(p.getWays().get(wi).getRef(ri - 1));
+				n2 = p.getNode(p.getWays().get(wi).getRef(ri));
 				if (r == 0) {
 					nf1 = n1;
 					nf2 = n2;
 					figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
 				}
-				if (r == Parser.Ways.get(wi).getRefSize()) {
+				if (r == p.getWays().get(wi).getRefSize()) {
 					figure.lineTo(getPosition(nf1.getLat(), 'x'), getPosition(nf1.getLon(), 'y'));
 					figure.lineTo(getPosition(nf2.getLat(), 'x'), getPosition(nf2.getLon(), 'y'));
 					figure.closePath();
-					colorWay(g2d, Parser.Ways.get(wi), figure, nf1, nf2);
+					colorWay(g2d, p.getWays().get(wi), figure, nf1, nf2);
 					g2d.setPaint(Color.gray);
 					g2d.setStroke(s);
 					r = 0;
@@ -114,19 +115,19 @@ public class Surface extends JPanel implements ActionListener {
 					figure.lineTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
 					figure.lineTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
 					figure.closePath();
-					colorWay(g2d, Parser.Ways.get(wi), figure, n1, n2);
+					colorWay(g2d, p.getWays().get(wi), figure, n1, n2);
 					g2d.setPaint(Color.gray);
 					g2d.setStroke(s);
 					r++;
 				}
 
-				// draw(g2d,Parser.getNode(Parser.Ways.get(wi).getRef(ri-1)),Parser.getNode(Parser.Ways.get(wi).getRef(ri)));
+				// draw(g2d,p.getNode(p.getWays().get(wi).getRef(ri-1)),p.getNode(p.getWays().get(wi).getRef(ri)));
 			}
 		}
-		for (int wi = 0; wi < Parser.Ways.size(); wi++) {
-			for (int ri = 1; ri < Parser.Ways.get(wi).getRefSize(); ri++) {
-				n1 = Parser.getNode(Parser.Ways.get(wi).getRef(ri - 1));
-				n2 = Parser.getNode(Parser.Ways.get(wi).getRef(ri));
+		for (int wi = 0; wi < p.getWays().size(); wi++) {
+			for (int ri = 1; ri < p.getWays().get(wi).getRefSize(); ri++) {
+				n1 = p.getNode(p.getWays().get(wi).getRef(ri - 1));
+				n2 = p.getNode(p.getWays().get(wi).getRef(ri));
 				draw(g2d, n1, n2);
 			}
 		}
@@ -134,8 +135,8 @@ public class Surface extends JPanel implements ActionListener {
 	}
 	/*public void drawBuildingString(Graphics2D g2d, Way w){
 		g2d.setPaint(Color.BLACK);
-		Node nd1 = Parser.getNode(w.getRef(0));
-		Node nd2 = Parser.getNode(w.getRef(w.getRefSize()-1));
+		Node nd1 = p.getNode(w.getRef(0));
+		Node nd2 = p.getNode(w.getRef(w.getRefSize()-1));
 		g2d.drawString(value, (float) getPosition((nd1.getLat()+nd2.getLat())/2, 'x'), (float) getPosition((nd1.getLon()+nd2.getLon())/2, 'y'));
 	}*/
 	/**

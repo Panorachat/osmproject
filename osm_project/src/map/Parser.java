@@ -12,9 +12,38 @@ public class Parser {
 
 	static Document document;
 	static Element racine;
-	public static ArrayList<Node> Nodes =getAllNode();//Hidden commentary
-	public static ArrayList<Way> Ways =getAllWay(); 
+	public static ArrayList<Node> Nodes;
+	public static ArrayList<Way> Ways ;
 	ArrayList<String> ListeTag = new ArrayList<String>();
+
+	
+	/**
+	 * Constructeur de la fonction Parser
+	 */
+	public Parser(){
+		this.Nodes=getAllNode();
+		this.Ways=getAllWay();
+	}
+	
+	
+	/**
+	 * Retourne la liste de Nodes
+	 * @return ArrayList<Node>
+	 */
+	public ArrayList<Node> getNodes(){
+		return this.Nodes;
+	}
+	
+	
+	/**
+	 * Retourne la liste des Ways
+	 * @return ArrayList<Way>
+	 */
+	public ArrayList<Way> getWays(){
+		return this.Ways;
+	}
+	
+	
 	/**
 	*Function which return the limits/bounds of map
 	**/
@@ -48,17 +77,19 @@ public class Parser {
 		}
 		return boundtab;
 	}
-	//Fonction qui retourne toute la liste des ways
-	public static ArrayList<Way> getAllWay(){
+	
+	
+	/**
+	 * Return the list of all the Way contenues dans le fichier .XML
+	 * @return ArrayList<Way>
+	 */
+	private static ArrayList<Way> getAllWay(){
 		init();
 		ArrayList<Way> wayList = new ArrayList<Way>();
 		List<Element> listWay = racine.getChildren("way");
 		Iterator<Element> i = listWay.iterator();
 		while(i.hasNext()){
 			Element courant = (Element)i.next();
-			
-		
-			
 			Way way = new Way(Long.valueOf((courant.getAttributeValue("id"))));
 			List<Element> listTag = courant.getChildren("tag");
 			Iterator<Element> tag = listTag.iterator();
@@ -84,10 +115,13 @@ public class Parser {
 		}
 		return wayList;
 	}
+	
+	
 	/**
-	*Return the list of all the nodes
+	*Return the list of all the nodes contenues dans le fichier .XML
+	*@return ArrayList<Node>
 	**/
-	public static ArrayList<Node> getAllNode(){
+	private static ArrayList<Node> getAllNode(){
 		init();
 		ArrayList<Node> nodeList = new ArrayList<Node>();
 		List<Element> listNode = racine.getChildren("node");
@@ -98,7 +132,13 @@ public class Parser {
 		}
 		return nodeList;
 	}
-	//Retourne l'element i d'une Liste de node
+	
+	
+	/**Retourne l'element i d'une Liste de node
+	 * 
+	 * @param i
+	 * @return Node
+	 */
 	public static Node getNode(long i){
 		Node n=new Node();
 		for(int cpt=0;cpt<Nodes.size();cpt++){
@@ -108,6 +148,7 @@ public class Parser {
 		}
 		return n;
 	}
+	
 	/**
 	*Initialization of Map.osm
 	**/
