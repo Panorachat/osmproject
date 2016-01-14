@@ -57,16 +57,15 @@ public class Parser {
 		while(i.hasNext()){
 			Element courant = (Element)i.next();
 			
+		
+			
+			Way way = new Way(Long.valueOf((courant.getAttributeValue("id"))));
 			List<Element> listTag = courant.getChildren("tag");
 			Iterator<Element> tag = listTag.iterator();
-			ArrayList<String> ListeTag = new ArrayList<String>();
 			while(tag.hasNext()){
 				Element Tagcourant = (Element)tag.next();
-				ListeTag.add(Tagcourant.getAttributeValue("k"));
+				way.addTag(Tagcourant.getAttributeValue("k"));
 			}
-			
-			Way way = new Way(Long.valueOf((courant.getAttributeValue("id"))),ListeTag);
-			ListeTag=null;
 			List<Element> listRef = courant.getChildren("nd");
 			Iterator<Element> ref = listRef.iterator();
 			while(ref.hasNext()){
