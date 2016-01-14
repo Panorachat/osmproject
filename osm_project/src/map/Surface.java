@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.io.File;
@@ -18,7 +20,7 @@ import GUI.Dessin;
 import java.awt.Image;
 import java.awt.Stroke;
 
-public class Surface extends JPanel implements ActionListener {
+public class Surface extends JPanel implements ActionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	Parser p = new Parser();
 	static private Bound b = new Bound();
@@ -38,6 +40,7 @@ public class Surface extends JPanel implements ActionListener {
 	public Surface(Dessin frame){
 		super();
 		this.ancestor = frame;
+		addMouseWheelListener(this);
 	}
 
 	public double getZoom(){
@@ -235,5 +238,27 @@ public class Surface extends JPanel implements ActionListener {
 		}
 		return null;
 	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent evt) {
+		// TODO Auto-generated method stub
+		int wheelValue = evt.getWheelRotation();
+		boolean zoomValue;
+		if(wheelValue < 0){
+			zoomValue = true;
+		}
+		else if(wheelValue > 0){
+			zoomValue = false;
+		}
+		else{
+			throw new IllegalArgumentException("Invalid value");
+		}
+		this.ancestor.getMap().zoom(zoomValue);
+		System.out.println("zoom : " + zoomValue);
+		System.out.println("scale : " + this.ancestor.getMap().getZoom());
+        System.out.println(this.ancestor.getUI().getWidth());
+
+	}
+	
 }
 //
