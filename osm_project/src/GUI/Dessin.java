@@ -3,7 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 
 import map.Surface;
 
@@ -31,25 +33,25 @@ public class Dessin extends JFrame implements MouseMotionListener {
      * @version 1.0
      */
     private void initUI() {
-    	
+    	JLayeredPane contentPane = new JLayeredPane();
         setTitle("Map");
-        setSize(res_x, res_y);
-
-        this.setMap(new Surface(this));
+        setBounds(100, 100, res_x, res_y);
+        this.setContentPane(contentPane);
+        this.map = new Surface(this);
         this.scaleBar = new ScaleBar(this);
         this.UI = new SurfaceMenu(this);
-
+        this.UI.setOpaque(true);
         setLayout(new BorderLayout());
-        
-        getContentPane().add(this.UI, BorderLayout.NORTH);
-        getContentPane().add(this.map, BorderLayout.CENTER);
 
-        
+        getContentPane().add(this.UI);
+
+        getContentPane().add(this.map);
+        System.out.println(this.getUI().getWidth());
+       
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    
 	public Surface getMap() {
 		return map;
 	}
@@ -60,12 +62,25 @@ public class Dessin extends JFrame implements MouseMotionListener {
 	public SurfaceMenu getUI() {
 		return UI;
 	}
-	public void setUI(SurfaceMenu UI) {
-		this.UI = UI;
-	}
+
 	public ScaleBar getScaleBar(){
 		return this.scaleBar;
 	}
+	
+//	public JComponent setDisplay(){
+//		JComponent contentPane = createContentPane();
+//		contentPane.add(map);
+//		contentPane.add(scaleBar);
+//		return contentPane;
+//	}
+	
+//	public JLayeredPane createContentPane(){
+//		contentPane = new JLayeredPane();
+//        contentPane.setBounds(100, 100, this.getWidth(), this.getHeight());
+//        contentPane.setLayout(new BorderLayout(0, 0));
+//        contentPane.setVisible(true);
+//        return contentPane;
+//	}
 	
 	@Override
 	public void mouseDragged(MouseEvent evt) {
@@ -73,7 +88,11 @@ public class Dessin extends JFrame implements MouseMotionListener {
 		evt.translatePoint(evt.getComponent().getLocation().x, evt.getComponent()
 	            .getLocation().y);
 	    map.setLocation(evt.getX(), evt.getY());
-	    repaint();
+	    
+	}
+	
+	public void mouseReleased(MouseEvent evt){
+		repaint();
 	}
 	@Override
 	public void mouseMoved(MouseEvent arg0) {

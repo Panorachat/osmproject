@@ -22,7 +22,7 @@ public class Surface extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	Parser p = new Parser();
 	static private Bound b = new Bound();
-	private double ZOOM = 5;
+	private double ZOOM = 1;
 	private final double MINZOOM = 1; // Minimal zoom
 	private final double MAXZOOM = 10; // Maximal zoom
 	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
@@ -63,10 +63,10 @@ public class Surface extends JPanel implements ActionListener {
 	 */
 	public double getPosition(double val, char coordonee){
 		if(coordonee=='x'){
-			position=((val-b.getMinLat())/(b.getMaxLat()-b.getMinLat()))*this.ancestor.getSize().width*Math.cos(val);
+			position=((val-b.getMinLat())/(b.getMaxLat()-b.getMinLat()))*this.getSize().width*Math.cos(val);
 		}
 		else{
-			position=((val-b.getMinLon())/(b.getMaxLon()-b.getMinLon()))*this.ancestor.getSize().height;
+			position=((val-b.getMinLon())/(b.getMaxLon()-b.getMinLon()))*this.getSize().height;
 
 		}
 		return position;
@@ -81,7 +81,7 @@ public class Surface extends JPanel implements ActionListener {
 
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setPaint(Color_Map.background_color.getColor());
-		g2d.fillRect(0, 0, 900, 900);
+		g2d.fillRect(0, 0, this.ancestor.getWidth()-200, this.ancestor.getHeight());
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setPaint(Color.gray);
@@ -131,7 +131,9 @@ public class Surface extends JPanel implements ActionListener {
 				draw(g2d, n1, n2);
 			}
 		}
-		repaint();
+		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
+		//this.ancestor.getUI().repaint(this.ancestor.getWidth)
+		
 	}
 	/*public void drawBuildingString(Graphics2D g2d, Way w){
 		g2d.setPaint(Color.BLACK);
