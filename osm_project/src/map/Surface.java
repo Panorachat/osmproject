@@ -138,7 +138,6 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 			}
 		}
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
-		//this.ancestor.getUI().repaint(this.ancestor.getWidth)
 		
 	}
 	/*public void drawBuildingString(Graphics2D g2d, Way w){

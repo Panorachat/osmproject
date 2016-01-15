@@ -10,29 +10,30 @@ import javax.swing.JLayeredPane;
 import map.Surface;
 
 /**
- * Classe Graphique qui se charge du dessin
+ * Classe Graphique qzoomMenu se charge du dessin
  * @author Moi lol
  * @version 1.0
  * @since 2015
  */
 public class Dessin extends JFrame implements MouseMotionListener {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionzoomMenuD = 1L;
     protected final static int res_x=1080;//lat
     protected final static int res_y=720;//lon
 
     private Surface map;
     private SurfaceMenu UI;
+    private ZoomMenu zoomMenu;
     private ScaleBar scaleBar;
 
     public Dessin() {
-        initUI();
+        initzoomMenu();
         map.addMouseMotionListener(this);
     }
     /**
-     * Fonction qui sert a creer la fenetre ou sera affiche la map
+     * Fonction qzoomMenu sert a creer la fenetre ou sera affiche la map
      * @version 1.0
      */
-    private void initUI() {
+    private void initzoomMenu() {
     	JLayeredPane contentPane = new JLayeredPane();
         setTitle("Map");
         setBounds(100, 100, res_x, res_y);
@@ -40,13 +41,15 @@ public class Dessin extends JFrame implements MouseMotionListener {
         this.map = new Surface(this);
         this.scaleBar = new ScaleBar(this);
         this.UI = new SurfaceMenu(this);
+        this.zoomMenu = new ZoomMenu(this);
+        this.zoomMenu.setOpaque(true);
         this.UI.setOpaque(true);
         setLayout(new BorderLayout());
-
         getContentPane().add(this.UI);
-
+        //getContentPane().add(this.zoomMenu);
+        getContentPane().add(scaleBar);
         getContentPane().add(this.map);
-        System.out.println(this.getUI().getWidth());
+        System.out.println(this.getzoomMenu().getWidth());
        
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,12 +62,16 @@ public class Dessin extends JFrame implements MouseMotionListener {
 		this.map = map;
 	}
 	
-	public SurfaceMenu getUI() {
-		return UI;
+	public ZoomMenu getzoomMenu() {
+		return zoomMenu;
 	}
 
 	public ScaleBar getScaleBar(){
 		return this.scaleBar;
+	}
+	
+	public SurfaceMenu getUI(){
+		return this.UI;
 	}
 	
 //	public JComponent setDisplay(){
@@ -98,4 +105,6 @@ public class Dessin extends JFrame implements MouseMotionListener {
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 	}
+	
+	
 }
