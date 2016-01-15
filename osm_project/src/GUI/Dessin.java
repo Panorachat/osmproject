@@ -17,8 +17,8 @@ import map.Surface;
  */
 public class Dessin extends JFrame implements MouseMotionListener {
     private static final long serialVersionUID = 1L;
-    protected final static int res_x=900;//lat
-    protected final static int res_y=900;//lon
+    protected final static int res_x=1080;//lat
+    protected final static int res_y=720;//lon
 
     private Surface map;
     private SurfaceMenu UI;
