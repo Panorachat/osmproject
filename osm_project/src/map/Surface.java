@@ -1,5 +1,6 @@
 package map;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -90,6 +91,8 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setPaint(Color.gray);
 		g2d.scale(ZOOM, ZOOM);
+		Font f = new Font("Name",1,8);
+		g2d.setFont(f);
 		Stroke s = g2d.getStroke();
 
 
@@ -173,7 +176,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		double distanceN1N2 = getDistance(n1,n2);
 		double beta = Math.acos(distanceN1N3/distanceN1N2);
 		//System.out.println(distanceN1N3 + " / " + distanceN1N2 + " = " + distanceN1N3/distanceN1N2 + " | " + beta  + " | " + Math.acos(0));
-		g2d.rotate(0-(Math.PI/2)-beta,getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'));
+		g2d.rotate((Math.PI/2)-beta,getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'));
 		figure.moveTo(getPosition(n1.getLat(), 'x') + 1, getPosition(n1.getLon(), 'y') + 1);
 		g2d.setPaint(Color.BLACK);
 		g2d.drawString(value, (float) getPosition((n1.getLat()+n2.getLat())/2, 'x'), (float) getPosition((n1.getLon()+n2.getLon())/2, 'y'));
@@ -229,8 +232,9 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 				break;
 
 			case "name":
-				AffineTransform old = g2d.getTransform(); // sert pour remettre le graphique dans le bon angle
-				if (r == 1) {
+				AffineTransform old = g2d.getTransform(); // sert pour remettre la rotation du graphique a 0
+				//String sub = value.substring(0,value.length()-r);
+				if (r == 1 || r%9 == 1) {
 					displayName(g2d,w,figure,n1,n2);
 				}
 				g2d.setTransform(old);
