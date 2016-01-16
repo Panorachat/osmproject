@@ -26,11 +26,6 @@ public final class SurfaceMenu extends JLayeredPane implements ActionListener{
 		this.add(new ZoomMenu(this.ancestor));
 		this.add(new SearchMenu(this.ancestor));
 	}
-
-	public void paintComponent(Graphics g){
-		this.setBounds(this.ancestor.getWidth()-200, 0, 200, this.ancestor.getHeight());
-		super.paintComponent(g);
-	}
 	
 	@Override
 	public void actionPerformed(ActionEvent evt) {
