@@ -29,27 +29,24 @@ public class ScaleBar extends JPanel{
 			e.printStackTrace();
 		}
 		this.ancestor = window;
-		this.initScaleBar();
+		this.initProperties();
 
-		this.setBounds((this.ancestor.getWidth())/10, (this.ancestor.getHeight())*9/10, 150, 90);
+		this.setBounds(barX_offset, barY_offset, barWidth, barHeight);
+		this.setOpaque(true);
 		setLayout(new BorderLayout());
-//		this.setSize(this.barWidth, this.barHeight);
-//		this.setLocation(this.ancestor.getWidth() * (9/10), this.ancestor.getHeight() * (1/10));
-		//this.setBounds((window.getSize().width) / 10, (window.getSize().height) * 9/10, this.barWidth, this.barHeight);
 	}
 	
-	public void initScaleBar(){
+	public void initProperties(){
 		this.barWidth = 180;
-		this.barHeight = (this.ancestor.getSize().height)/35;
-		this.barX_offset = (this.ancestor.getSize().width) / 20;
-		this.barY_offset = (int) ((this.ancestor.getSize().height)*0.9f);
+		this.barHeight = 70;
+		this.barX_offset = 100;
+		this.barY_offset = 500;
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
-		this.initScaleBar();
-		g2d.drawImage(img, this.barX_offset, this.barY_offset, this.barWidth, this.barHeight, this);
+		g2d.drawImage(img, 0, 0, this.barWidth, this.barHeight, this);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		

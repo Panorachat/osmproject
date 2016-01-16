@@ -6,11 +6,14 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,7 +25,7 @@ import GUI.Dessin;
 import java.awt.Image;
 import java.awt.Stroke;
 
-public class Surface extends JPanel implements ActionListener, MouseWheelListener {
+public class Surface extends JPanel implements ActionListener, MouseWheelListener, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
 	Parser p = new Parser();
 	static private Bound b = new Bound();
@@ -31,6 +34,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 	private final double MAXZOOM = 10; // Maximal zoom
 	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
 	double position;//Determine position d'un point
+	private BufferedImage map;
 
 	int r=0;//Nombre de murs
 	String tag = "";
@@ -43,6 +47,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		super();
 		this.ancestor = frame;
 		addMouseWheelListener(this);
+		addMouseMotionListener(this);
 	}
 
 	public double getZoom(){
@@ -141,6 +146,10 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 			}
 		}
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
+		this.ancestor.getUI().repaint();
+	}
+	
+	public void initMap(){
 		
 	}
 	/*public void drawBuildingString(Graphics2D g2d, Way w){
@@ -293,5 +302,23 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 
 	}
 	
+	@Override
+	public void mouseDragged(MouseEvent evt) {
+		// TODO Auto-generated method stub
+		evt.translatePoint(evt.getComponent().getLocation().x, evt.getComponent()
+	            .getLocation().y);
+	    this.setLocation(evt.getX(), evt.getY());
+	    //repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
+	    revalidate();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void MouseReleased(MouseEvent evt){
+	    repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
+	}
 }
-//

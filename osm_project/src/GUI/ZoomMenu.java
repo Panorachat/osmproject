@@ -29,9 +29,24 @@ public class ZoomMenu extends JPanel implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
-		
+		boolean zoomButtonValue;
+		String buttonLabel = evt.getActionCommand();
+		switch (buttonLabel){
+		case "more":
+			zoomButtonValue = true;
+			break;
+		case "less":
+			zoomButtonValue = false;
+			break;
+		default:
+			throw new IllegalArgumentException("Invalid button label: " + buttonLabel);
+		}
+		this.ancestor.getMap().zoom(zoomButtonValue);
+		System.out.println("zoom : " + zoomButtonValue);
+		System.out.println("scale : " + this.ancestor.getMap().getZoom());
+        System.out.println(this.getWidth());
 	}
 
 }
