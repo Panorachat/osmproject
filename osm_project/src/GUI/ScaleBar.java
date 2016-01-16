@@ -1,9 +1,11 @@
 package GUI;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,8 +31,7 @@ public class ScaleBar extends JPanel{
 		this.ancestor = window;
 		this.initScaleBar();
 
-		this.setLocation(200, 200);
-		new JPanel(new BorderLayout());
+		this.setBounds((this.ancestor.getWidth())/10, (this.ancestor.getHeight())*9/10, 150, 90);
 		setLayout(new BorderLayout());
 //		this.setSize(this.barWidth, this.barHeight);
 //		this.setLocation(this.ancestor.getWidth() * (9/10), this.ancestor.getHeight() * (1/10));
