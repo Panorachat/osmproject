@@ -37,18 +37,18 @@ public class ScaleBar extends JPanel{
 	}
 	
 	public void initProperties(){
-		this.barWidth = 180;
-		this.barHeight = 70;
-		this.barX_offset = 100;
-		this.barY_offset = 500;
+		this.barWidth = (int) this.ancestor.getWidth()/8;
+		this.barHeight = (int) this.ancestor.getHeight()/20;
+		this.barX_offset = (int) this.ancestor.getWidth()/15;
+		this.barY_offset = (int) this.ancestor.getHeight()*9/10;
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		this.setBounds(barX_offset, barY_offset, barWidth, barHeight);
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.drawImage(img, 0, 0, this.barWidth, this.barHeight, this);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-		
 	}   
 }

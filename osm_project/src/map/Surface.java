@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import GUI.Dessin;
+import GUI.ScaleBar;
 
 import java.awt.Image;
 import java.awt.Stroke;
@@ -34,7 +35,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 	private final double MAXZOOM = 10; // Maximal zoom
 	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
 	double position;//Determine position d'un point
-	private BufferedImage map;
+	private ScaleBar scaleBar;
 
 	int r=0;//Nombre de murs
 	String tag = "";
@@ -48,6 +49,10 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		this.ancestor = frame;
 		addMouseWheelListener(this);
 		addMouseMotionListener(this);
+		this.scaleBar = new ScaleBar(this.ancestor);
+		//this.scaleBar.setBounds(, 600, this.scaleBar.getWidth(), this.scaleBar.getHeight());
+		this.scaleBar.setOpaque(true);
+		this.ancestor.getContentPane().add(scaleBar);
 	}
 
 	public double getZoom(){
@@ -146,8 +151,12 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 			}
 		}
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
+		
+		//Mise en place de l'interface utilisateur
 		this.ancestor.getUI().setBounds(this.ancestor.getWidth()-200, 0, this.ancestor.getUI().getWidth(),
 				this.ancestor.getHeight());
+		
+		this.scaleBar.repaint();
 	}
 	
 	public void initMap(){

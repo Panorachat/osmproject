@@ -38,7 +38,6 @@ public class Dessin extends JFrame{
         setBounds(100, 100, res_x, res_y);
         this.setContentPane(contentPane);
         this.map = new Surface(this);
-        this.map.add(new ScaleBar(this));
         this.UI = new SurfaceMenu(this);
         this.zoomMenu = new ZoomMenu(this);
         this.zoomMenu.setOpaque(true);
