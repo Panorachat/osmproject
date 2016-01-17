@@ -44,9 +44,12 @@ public class ZoomMenu extends JPanel implements ActionListener {
 			throw new IllegalArgumentException("Invalid button label: " + buttonLabel);
 		}
 		this.ancestor.getMap().zoom(zoomButtonValue);
+		this.ancestor.getMap().setNeedRepaint(true);
+		this.ancestor.getMap().repaint();
 		System.out.println("zoom : " + zoomButtonValue);
 		System.out.println("scale : " + this.ancestor.getMap().getZoom());
         System.out.println(this.getWidth());
+        
 	}
 
 }

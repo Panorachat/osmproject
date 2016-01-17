@@ -37,23 +37,31 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
 	double position;//Determine position d'un point
 	private ScaleBar scaleBar;
-
+	
+	private boolean needRepaint = true;
+	
 	int r=0;//Nombre de murs
 	String tag = "";
 	String value = "";
 	Node n1, n2, nf1, nf2;
+	
+	private BufferedImage mapTemp;
 
 	public Dessin ancestor;
 
 	public Surface(Dessin frame){
 		super();
 		this.ancestor = frame;
+		this.mapTemp = new BufferedImage(this.ancestor.getWidth()-200, this.ancestor.getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics g = mapTemp.getGraphics();
+		initMap(g);
+		this.setBounds(0, 0, this.ancestor.getWidth()-200, this.ancestor.getHeight());
 		addMouseWheelListener(this);
 		addMouseMotionListener(this);
-		this.scaleBar = new ScaleBar(this.ancestor);
-		//this.scaleBar.setBounds(, 600, this.scaleBar.getWidth(), this.scaleBar.getHeight());
+		this.scaleBar = new ScaleBar(this);
 		this.scaleBar.setOpaque(true);
-		this.ancestor.getContentPane().add(scaleBar);
+		this.setBounds(50, 600, this.scaleBar.getWidth(), this.scaleBar.getHeight());
+		this.add(scaleBar);
 	}
 
 	public double getZoom(){
@@ -63,6 +71,10 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 	public void setZoom(double x){
 		this.ZOOM=x;
 	}
+	
+	public Bound getB(){
+		return this.b;
+	}
 	/*private void drawImage(Graphics g2d, Node n){
     	g2d.drawImage(pi, (int)getPosition(n.getLat(),'x'), (int)getPosition(n.getLon(),'y'), this);
     }*/
@@ -71,7 +83,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 				, getPosition(n1.getLat(),'x'), getPosition(n1.getLon(),'y')));
 	}
 	/**
-	 * Fonction qui retourne les coordonnes formates a la taille de la fenetre
+	 * Fonction qui retourne les coordonnes formatees a la taille de la fenetre
 	 * @param double Coordonnes 
 	 * @param char x(lat) ou y(lon)
 	 * @return double
@@ -93,11 +105,26 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 	 * @version 1.0
 	 */
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-
+		if(this.needRepaint){
+			Graphics mapTempGraphics = this.mapTemp.getGraphics();
+			initMap(mapTempGraphics);
+			this.needRepaint = false;
+		}
+		else{
+			super.paintComponent(g);
+			g.drawImage(mapTemp, 0, 0, null);
+		}
+		System.out.println("needRepaint : " + needRepaint);
+	}
+	
+	public void setNeedRepaint(boolean b){
+		this.needRepaint = b;
+	}
+	
+	public void initMap(Graphics g){
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setPaint(Color_Map.background_color.getColor());
-		g2d.fillRect(0, 0, this.ancestor.getWidth()-200, this.ancestor.getHeight());
+		g2d.fillRect(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setPaint(Color.gray);
@@ -184,11 +211,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		this.ancestor.getUI().setBounds(this.ancestor.getWidth()-200, 0, this.ancestor.getUI().getWidth(),
 				this.ancestor.getHeight());
 		
-		this.scaleBar.repaint();
-	}
-	
-	public void initMap(){
-		
+		//this.scaleBar.repaint();
 	}
 	/*public void drawBuildingString(Graphics2D g2d, Way w){
 		g2d.setPaint(Color.BLACK);
@@ -306,6 +329,10 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 			}
 		}
 		
+		public Dessin getAncestor(){
+			return this.ancestor;
+		}
+		
 	public void zoom(boolean BUTTONVALUE){
 		// Using zoom limits values
 		if(this.ZOOM >= MAXZOOM && BUTTONVALUE){
@@ -353,7 +380,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		System.out.println("zoom : " + zoomValue);
 		System.out.println("scale : " + this.ancestor.getMap().getZoom());
         System.out.println(this.ancestor.getUI().getWidth());
-
+        this.needRepaint = true;
 	}
 	
 	@Override
@@ -373,6 +400,6 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 	}
 	
 	public void MouseReleased(MouseEvent evt){
-	    repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
+	  //  repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
 	}
 }

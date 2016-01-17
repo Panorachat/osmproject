@@ -26,19 +26,21 @@ public class Dessin extends JFrame{
     private ScaleBar scaleBar;
 
     public Dessin() {
-        initzoomMenu();
+        initUI();
     }
     /**
      * Fonction qzoomMenu sert a creer la fenetre ou sera affiche la map
      * @version 1.0
      */
-    private void initzoomMenu() {
+    private void initUI() {
     	JLayeredPane contentPane = new JLayeredPane();
         setTitle("Map");
         setBounds(100, 100, res_x, res_y);
         this.setContentPane(contentPane);
-        this.map = new Surface(this);
         this.UI = new SurfaceMenu(this);
+
+        this.map = new Surface(this);
+
         this.zoomMenu = new ZoomMenu(this);
         this.zoomMenu.setOpaque(true);
         this.UI.setOpaque(true);
@@ -57,7 +59,7 @@ public class Dessin extends JFrame{
 		this.map = map;
 	}
 	
-	public ZoomMenu getzoomMenu() {
+	public ZoomMenu getZoomMenu() {
 		return zoomMenu;
 	}
 
