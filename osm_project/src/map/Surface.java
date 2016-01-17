@@ -144,9 +144,17 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		}
 		for (int wi = 0; wi < p.getWays().size(); wi++) {
 			for (int ri = 1; ri < p.getWays().get(wi).getRefSize(); ri++) {
-				n1 = p.getNode(p.getWays().get(wi).getRef(ri - 1));
-				n2 = p.getNode(p.getWays().get(wi).getRef(ri));
-				draw(g2d, n1, n2);
+				if (p.getWays().get(wi).getTagSize() == 0) {
+					tag = "";
+				} else {
+					tag = p.getWays().get(wi).getTag(p.getWays().get(wi).getTagSize()-1);;
+				}
+
+				//if (tag != "highway") {
+					n1 = Parser.getNode(p.getWays().get(wi).getRef(ri - 1));
+					n2 = Parser.getNode(p.getWays().get(wi).getRef(ri));
+					draw(g2d, n1, n2);
+				//}
 			}
 		}
 		
@@ -161,9 +169,9 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 					figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
 					r++;
 				}
-				figure.lineTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
-				figure.lineTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
-				figure.closePath();
+				figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
+				figure.moveTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
+
 				g2d.setPaint(Color.black);
 				nameWay(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
 				g2d.setStroke(s);
@@ -217,10 +225,10 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 			double beta = Math.acos(distanceN1N3/distanceN1N2);
 			//System.out.println(distanceN1N3 + " / " + distanceN1N2 + " = " + distanceN1N3/distanceN1N2 + " | " + beta  + " | " + Math.acos(0));
 			g2d.rotate(-(Math.PI/2)+beta,getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'));
-			figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y')+50);
+			//figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y')+50);
 			g2d.setPaint(Color.BLACK);
-			g2d.drawString(value, (float) getPosition((n1.getLat()+n2.getLat())/2, 'x'), (float) getPosition((n1.getLon()+n2.getLon())/2, 'y'));
-
+			g2d.drawString(value, (float) (getPosition(n1.getLat(), 'x')), (float) (getPosition(n1.getLon(), 'y')));
+			//figure.closePath();
 		}
 
 		public void colorWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r) {
@@ -280,8 +288,10 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 
 		public void nameWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
 			for (int i = 0; i < w.getTagSize()-1; i++) {
+				if (w.getTag().contains("highway") || w.getTag().contains("places") || w.getTag().contains("route")) {
 				tag = w.getTag(i);
 				value = w.getValue(i);
+				
 				switch (tag) {
 				case "name":
 					AffineTransform old = g2d.getTransform(); // sert pour remettre la rotation du graphique a 0
@@ -291,6 +301,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 					}
 					g2d.setTransform(old);
 					break;
+				}
 				}
 			}
 		}
