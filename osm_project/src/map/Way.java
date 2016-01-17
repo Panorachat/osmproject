@@ -1,7 +1,7 @@
 package map;
 import java.util.ArrayList;
 
-public class Way {
+public class Way implements Comparable<Way> {
 	private long id;
 	private ArrayList<String> tagList = new ArrayList<String>();
 	private ArrayList<String> valueList = new ArrayList<String>();
@@ -23,6 +23,9 @@ public class Way {
 		case "wall":
 			this.altitude = 1;
 		break;
+		case "amenity" :
+			this.altitude = 2;
+			break;
 		}
 		this.tagList.add(e);
 	}
@@ -73,5 +76,11 @@ public class Way {
 
 	public int getValueSize() {
 		return this.valueList.size();
+	}
+	
+	public int compareTo(Way arg0) {
+		// TODO Auto-generated method stub
+		int compareAlt = arg0.getAltitude();
+        return this.altitude - compareAlt;
 	}
 }

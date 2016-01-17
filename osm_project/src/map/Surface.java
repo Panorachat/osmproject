@@ -16,6 +16,7 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -104,6 +105,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		Font f = new Font("Name",1,8);
 		g2d.setFont(f);
 		Stroke s = g2d.getStroke();
+		Collections.sort(p.Ways);
 
 
 		//g2d.drawImage(loadInterestPointIMG(),10,10,this);
@@ -120,8 +122,9 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 					nf1 = n1;
 					nf2 = n2;
 					figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
+					r++;
 				}
-				if (r == p.getWays().get(wi).getRefSize()) {
+				if (r == p.getWays().get(wi).getRefSize()-1) {
 					figure.lineTo(getPosition(nf1.getLat(), 'x'), getPosition(nf1.getLon(), 'y'));
 					figure.lineTo(getPosition(nf2.getLat(), 'x'), getPosition(nf2.getLon(), 'y'));
 					figure.closePath();
@@ -133,10 +136,6 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 				} else {
 					figure.lineTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
 					figure.lineTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
-					figure.closePath();
-					colorWay(g2d, p.getWays().get(wi), figure, n1, n2, r);
-					g2d.setPaint(Color.gray);
-					g2d.setStroke(s);
 					r++;
 				}
 
@@ -148,6 +147,27 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 				n1 = p.getNode(p.getWays().get(wi).getRef(ri - 1));
 				n2 = p.getNode(p.getWays().get(wi).getRef(ri));
 				draw(g2d, n1, n2);
+			}
+		}
+		
+		//phase pour afficher les noms, WIP
+		for (int wi = 0; wi < p.getWays().size(); wi++) {
+			GeneralPath figure = new GeneralPath();
+			r = 0;
+			for (int ri = 1; ri < p.getWays().get(wi).getRefSize(); ri++) {
+				n1 = Parser.getNode(p.getWays().get(wi).getRef(ri - 1));
+				n2 = Parser.getNode(p.getWays().get(wi).getRef(ri));
+				if (r == 0) {
+					figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
+					r++;
+				}
+				figure.lineTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
+				figure.lineTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
+				figure.closePath();
+				g2d.setPaint(Color.black);
+				nameWay(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
+				g2d.setStroke(s);
+				r++;
 			}
 		}
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
@@ -179,89 +199,102 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 
 	
 	//permet d'avoir la distance entre 2 nodes
-	public double getDistance(Node n1, Node n2) {
-		return Math.sqrt((Math.pow((getPosition(n2.getLat(), 'x')-getPosition(n1.getLat(), 'x')), 2)) + Math.pow((getPosition(n2.getLon(), 'y')- getPosition(n1.getLon(), 'y')),2));
-	}
-	
-	//permet d'avoir la distance entre 2 points
-	public double getDistance(double xA, double yA, double xB, double yB) {
-		return Math.sqrt((Math.pow(xB - xA, 2)) + Math.pow(yB - yA,2));
-	}
-	
-	//WIP :affiche le nom des rues suivant le bon angle 
-	public void displayName(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2) {
-		double distanceN1N3 = getDistance(getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'),getPosition(n1.getLat(), 'x'),getPosition(n2.getLon(), 'y'));
-		double distanceN2N3 = getDistance(getPosition(n2.getLat(), 'x'),getPosition(n2.getLon(), 'y'),getPosition(n1.getLat(), 'x'),getPosition(n2.getLon(), 'y'));
-		double distanceN1N2 = getDistance(n1,n2);
-		double beta = Math.acos(distanceN1N3/distanceN1N2);
-		//System.out.println(distanceN1N3 + " / " + distanceN1N2 + " = " + distanceN1N3/distanceN1N2 + " | " + beta  + " | " + Math.acos(0));
-		g2d.rotate((Math.PI/2)-beta,getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'));
-		figure.moveTo(getPosition(n1.getLat(), 'x') + 1, getPosition(n1.getLon(), 'y') + 1);
-		g2d.setPaint(Color.BLACK);
-		g2d.drawString(value, (float) getPosition((n1.getLat()+n2.getLat())/2, 'x'), (float) getPosition((n1.getLon()+n2.getLon())/2, 'y'));
+		public double getDistance(Node n1, Node n2) {
+			return Math.sqrt((Math.pow((getPosition(n2.getLat(), 'x')-getPosition(n1.getLat(), 'x')), 2)) + Math.pow((getPosition(n2.getLon(), 'y')- getPosition(n1.getLon(), 'y')),2));
+		}
+		
+		//permet d'avoir la distance entre 2 points
+		public double getDistance(double xA, double yA, double xB, double yB) {
+			return Math.sqrt((Math.pow(xB - xA, 2)) + Math.pow(yB - yA,2));
+		}
+		
+		
+		//WIP :affiche le nom des rues suivant le bon angle 
+		public void displayName(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2) {
+			double distanceN1N3 = getDistance(getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'),getPosition(n1.getLat(), 'x'),getPosition(n2.getLon(), 'y'));
+			//double distanceN2N3 = getDistance(getPosition(n2.getLat(), 'x'),getPosition(n2.getLon(), 'y'),getPosition(n1.getLat(), 'x'),getPosition(n2.getLon(), 'y'));
+			double distanceN1N2 = getDistance(n1,n2);
+			double beta = Math.acos(distanceN1N3/distanceN1N2);
+			//System.out.println(distanceN1N3 + " / " + distanceN1N2 + " = " + distanceN1N3/distanceN1N2 + " | " + beta  + " | " + Math.acos(0));
+			g2d.rotate(-(Math.PI/2)+beta,getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'));
+			figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y')+50);
+			g2d.setPaint(Color.BLACK);
+			g2d.drawString(value, (float) getPosition((n1.getLat()+n2.getLat())/2, 'x'), (float) getPosition((n1.getLon()+n2.getLon())/2, 'y'));
 
-	}
+		}
 
-	public void colorWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r) {
-		for (int i = 0; i < w.getTagSize()-1; i++) {
-			tag = w.getTag(i);
-			value = w.getValue(i);
-			switch (tag) {
-			case "building":
-				//g2d.setStroke(new BasicStroke(2));
-				g2d.setPaint(Color_Map.building_color.getColor());
-				g2d.fill(figure);
-				//g2d.setPaint(Color.BLACK);
-				break;
-			case "highway":
-				switch (value) {
-				case "motorway" :
-					g2d.setPaint(Color_Map.motorway_color.getColor());
+		public void colorWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r) {
+			for (int i = 0; i < w.getTagSize()-1; i++) {
+				tag = w.getTag(i);
+				value = w.getValue(i);
+				switch (tag) {
+				case "building":
+					//g2d.setStroke(new BasicStroke(2));
+					g2d.setPaint(Color_Map.building_color.getColor());
 					g2d.fill(figure);
+					//g2d.setPaint(Color.BLACK);
 					break;
-				case "trunk" :
-					g2d.setPaint(Color_Map.trunk_color.getColor());
-					g2d.fill(figure);
+				case "highway":
+					switch (value) {
+					case "motorway" :
+						g2d.setPaint(Color_Map.motorway_color.getColor());
+						g2d.fill(figure);
+						break;
+					case "trunk" :
+						g2d.setPaint(Color_Map.trunk_color.getColor());
+						g2d.fill(figure);
+						break;
+					case "primary" :
+						g2d.setPaint(Color_Map.primary_color.getColor());
+						g2d.fill(figure);
+						break;
+					case "secondary" :
+						g2d.setPaint(Color_Map.secondary_color.getColor());
+						g2d.fill(figure);
+						break;
+					case "tertiary"  :
+						g2d.setPaint(Color_Map.tertiary_color.getColor());
+						g2d.fill(figure);
+						break;
+					case "pedestrian"  :
+						g2d.setPaint(Color_Map.pedestrian_color.getColor());
+						g2d.fill(figure);
+						break;					
+					case "residential"  :
+						g2d.setPaint(Color_Map.residential_color.getColor());
+						g2d.fill(figure);
+						break;					
+					case "unclassified":
+						g2d.setPaint(Color_Map.tertiary_color.getColor());
+						g2d.fill(figure);
+						break;
+					}
 					break;
-				case "primary" :
-					g2d.setPaint(Color_Map.primary_color.getColor());
-					g2d.fill(figure);
-					break;
-				case "secondary" :
-					g2d.setPaint(Color_Map.secondary_color.getColor());
-					g2d.fill(figure);
-					break;
-				case "tertiary"  :
-					g2d.setPaint(Color_Map.tertiary_color.getColor());
-					g2d.fill(figure);
-					break;
-				case "pedestrian"  :
-					g2d.setPaint(Color_Map.pedestrian_color.getColor());
-					g2d.fill(figure);
-					break;					
-				case "residential"  :
-					g2d.setPaint(Color_Map.residential_color.getColor());
-					g2d.fill(figure);
-					break;					
-				case "unclassified":
-					g2d.setPaint(Color_Map.tertiary_color.getColor());
+				case "amenity" :
+					g2d.setPaint(Color_Map.amenity_color.getColor());
 					g2d.fill(figure);
 					break;
 				}
-				break;
-
-			case "name":
-				AffineTransform old = g2d.getTransform(); // sert pour remettre la rotation du graphique a 0
-				//String sub = value.substring(0,value.length()-r);
-				if (r == 1 || r%9 == 1) {
-					displayName(g2d,w,figure,n1,n2);
-				}
-				g2d.setTransform(old);
-				break;
 			}
 		}
-	}
 
+		public void nameWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
+			for (int i = 0; i < w.getTagSize()-1; i++) {
+				tag = w.getTag(i);
+				value = w.getValue(i);
+				switch (tag) {
+				case "name":
+					AffineTransform old = g2d.getTransform(); // sert pour remettre la rotation du graphique a 0
+					//String sub = value.substring(0,value.length()-r);
+					if (getDistance(n1,n2) >= g2d.getFontMetrics(f).stringWidth(value)) {
+						displayName(g2d,w,figure,n1,n2);
+					}
+					g2d.setTransform(old);
+					break;
+				}
+			}
+		}
+		
 	public void zoom(boolean BUTTONVALUE){
 		// Using zoom limits values
 		if(this.ZOOM >= MAXZOOM && BUTTONVALUE){

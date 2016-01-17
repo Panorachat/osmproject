@@ -9,12 +9,14 @@ public enum Color_Map {
     building_color(153, 255, 153),
     // couleur pour "highway" :
     motorway_color(255, 102, 102), // autoroute
-    pedestrian_color(43, 100, 232), // passage pieton
-    residential_color(179, 232, 26), // zone residentielle
+    pedestrian_color(205, 145, 158), // passage pieton
+    residential_color(130, 230, 230), // zone residentielle
     trunk_color(255, 153, 102),
     primary_color(255, 204, 102),
     secondary_color(255, 255, 102),
-    tertiary_color(224, 224, 224);
+    tertiary_color(224, 224, 224),
+	// couleur pour "amenity" :
+	amenity_color(113, 113, 198);
 
     //here begins the serious shit
     private final Color tag_color;
