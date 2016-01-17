@@ -11,7 +11,6 @@ import map.Surface;
 
 /**
  * Classe Graphique qzoomMenu se charge du dessin
- * @author Moi lol
  * @version 1.0
  * @since 2015
  */

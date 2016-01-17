@@ -21,6 +21,7 @@ public class Parser {
 	 * Constructeur de la fonction Parser
 	 */
 	public Parser(){
+		init();
 		Parser.Nodes=getAllNode();
 		Parser.Ways=getAllWay();
 	}
@@ -84,7 +85,6 @@ public class Parser {
 	 * @return ArrayList<Way>
 	 */
 	private static ArrayList<Way> getAllWay(){
-		init();
 		ArrayList<Way> wayList = new ArrayList<Way>();
 		List<Element> listWay = racine.getChildren("way");
 		Iterator<Element> i = listWay.iterator();
@@ -122,7 +122,6 @@ public class Parser {
 	*@return ArrayList<Node>
 	**/
 	private static ArrayList<Node> getAllNode(){
-		init();
 		ArrayList<Node> nodeList = new ArrayList<Node>();
 		List<Element> listNode = racine.getChildren("node");
 		Iterator<Element> i = listNode.iterator();
