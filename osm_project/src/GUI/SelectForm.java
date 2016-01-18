@@ -42,7 +42,44 @@ public class SelectForm extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - état : " + ((JCheckBox)e.getSource()).isSelected());
-			
+			switch(((JCheckBox)e.getSource()).getText()){
+				case "Parking":
+					if(((JCheckBox)e.getSource()).isSelected()){
+						//Afficher 
+					}else {
+						//Masquer 
+					}
+				break;
+				case "Restaurants":
+					if(((JCheckBox)e.getSource()).isSelected()){
+						//Afficher 
+					}else {
+						//Masquer 
+					}
+				break;
+				case "Cafés":
+					if(((JCheckBox)e.getSource()).isSelected()){
+						//Afficher 
+					}else {
+						//Masquer 
+					}
+				break;
+				case "Écoles":
+					if(((JCheckBox)e.getSource()).isSelected()){
+						//Afficher 
+					}else {
+						//Masquer 
+					}
+				break;
+				case "Universités":
+					if(((JCheckBox)e.getSource()).isSelected()){
+						//Afficher 
+					}else {
+						//Masquer 
+					}
+				break;
+				
+			}
 		}
 	}
 }
