@@ -66,7 +66,6 @@ public class ScaleBar extends JPanel{
 	public int getDistanceScale(){
 		DecimalFormat decimalFormat = (DecimalFormat)DecimalFormat.getInstance();
 		decimalFormat.applyPattern("###0.##########");
-		int r = 6366; // Rayon de la terre
 		double lat1 = this.ancestor.getB().getMinLat();
 		double lat2 = lat1;
 		double lon1 = this.ancestor.getB().getMinLon();
@@ -77,21 +76,27 @@ public class ScaleBar extends JPanel{
 //			lon2 += 0.0000000001;
 //			n2.setLon(lon2);
 //		}
-		// Conversion en radians
-		double lat1_rad = Math.toRadians(lat1);
-		double lon1_rad = Math.toRadians(lon1);
-		double lat2_rad = Math.toRadians(lat2);
-		double lon2_rad = Math.toRadians(lon2);
+
+	    double earthRadius = 6371000; //meters
+	    double dLat = Math.toRadians(lat2-lat1);
+	    double dLng = Math.toRadians(lon2-lon1);
+	    double d = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+	               Math.sin(dLng/2) * Math.sin(dLng/2);
+	    double c = 2 * Math.atan2(Math.sqrt(d), Math.sqrt(1-d));
+	    double dist = ((earthRadius * c)/6)/this.ancestor.getZoom();
+	    
+	    return (int) dist;
 		
-		// Calcul de la distance
-		double d = (2*Math.asin(Math.sqrt(
-				Math.pow((Math.sin((lat2_rad-lat1_rad)/2)), 2)
-				+
-				Math.cos(lat1_rad)*Math.cos(lat2_rad)*
-				(Math.pow(Math.sin(((lon2_rad-lon1_rad)/2)), 2))
-				)))*r;
-		
-		return (int) ((d)/(this.ancestor.getZoom()));
+//		// Calcul de la distance
+//		double d = (2*Math.asin(Math.sqrt(
+//				Math.pow((Math.sin((lat1_rad-lat2_rad)/2)), 2)
+//				+
+//				Math.cos(lat1_rad)*Math.cos(lat2_rad)*
+//				(Math.pow(Math.sin(((lon1_rad-lon2_rad)/2)), 2))
+//				)))*r;
+//		
+//		return (int) ((d)/(this.ancestor.getZoom()));
 	}
 	
 	public static ImageIcon scaleImage(Image source, int width, int height) {
