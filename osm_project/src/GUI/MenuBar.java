@@ -13,8 +13,17 @@ public class MenuBar{
 	public MenuBar(){
 		menuBar = new JMenuBar();
 		menu = new JMenu("Fichier");
+		menuItem = new JMenuItem("Ouvrir un fichier");
+		menu.add(menuItem);
+		menuItem = new JMenuItem("Fermer le fichier actuel");
+		menu.add(menuItem);
 		menuBar.add(menu);
-		menu = new JMenu("Selection");
+		menu = new JMenu("Édition");
+		menuItem = new JMenuItem("Placer un marqueur");
+		menu.add(menuItem);
+		menuItem = new JMenuItem("Annuler le marquage");
+		menu.add(menuItem);
+		menuBar.add(menu);
 		menuBar.add(menu);
 	}
 	
