@@ -66,16 +66,11 @@ public class ScaleBar extends JPanel{
 	public int getDistanceScale(){
 		DecimalFormat decimalFormat = (DecimalFormat)DecimalFormat.getInstance();
 		decimalFormat.applyPattern("###0.##########");
+		
 		double lat1 = this.ancestor.getB().getMinLat();
 		double lat2 = lat1;
 		double lon1 = this.ancestor.getB().getMinLon();
 		double lon2 = this.ancestor.getB().getMaxLon();
-//		Node n1 = new Node(-1, lon1, lat1, false);
-//		Node n2 = new Node(-2, lon2, lat2, false);
-//		while(this.ancestor.getDistance(n1, n2)<180){
-//			lon2 += 0.0000000001;
-//			n2.setLon(lon2);
-//		}
 
 	    double earthRadius = 6371000; //meters
 	    double dLat = Math.toRadians(lat2-lat1);
@@ -88,15 +83,6 @@ public class ScaleBar extends JPanel{
 	    
 	    return (int) dist;
 		
-//		// Calcul de la distance
-//		double d = (2*Math.asin(Math.sqrt(
-//				Math.pow((Math.sin((lat1_rad-lat2_rad)/2)), 2)
-//				+
-//				Math.cos(lat1_rad)*Math.cos(lat2_rad)*
-//				(Math.pow(Math.sin(((lon1_rad-lon2_rad)/2)), 2))
-//				)))*r;
-//		
-//		return (int) ((d)/(this.ancestor.getZoom()));
 	}
 	
 	public static ImageIcon scaleImage(Image source, int width, int height) {
@@ -108,9 +94,9 @@ public class ScaleBar extends JPanel{
 	    return new ImageIcon(img);
 	}
 	
-//	public void paintComponent(Graphics g){
-//		super.paintComponent(g);
-//		String str = 500/this.ancestor.getZoom() + " m";
-//		g.drawString(str, 10, this.getHeight()/2);
-//	}
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		String label = getDistanceScale() + " m";
+		this.distanceLabel.setText(label);
+	}
 }

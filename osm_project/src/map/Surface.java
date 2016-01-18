@@ -116,6 +116,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		if(this.needRepaint){
 			Graphics mapTempGraphics = this.mapTemp.getGraphics();
 			initMap(mapTempGraphics);
+			this.scaleBar.repaint();
 			this.needRepaint = false;
 		}
 		else{
