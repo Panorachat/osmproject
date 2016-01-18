@@ -42,7 +42,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	double position;//Determine position d'un point
 	private ScaleBar scaleBar;
 	
-	private Point mouseClick = new Point(5, 5);
+	private Point mouseClick = new Point(this.getWidth()/2, this.getHeight()/2);
+	private Point mouseReleased = new Point(this.getWidth()/2, this.getHeight()/2);
 	private AffineTransform transformer;
 	
 	private boolean needRepaint = true;
@@ -119,8 +120,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		}
 		else{
 			super.paintComponent(g);
-			g.clearRect(0, 0, this.getWidth(), this.getHeight());
 			g.drawImage(mapTemp, 0, 0, null);
+			this.ancestor.getUI().repaint();
 		}
 		System.out.println("needRepaint : " + needRepaint);
 	}
@@ -137,8 +138,9 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setPaint(Color.gray);
 		this.transformer = new AffineTransform();
-		transformer.translate(mouseClick.getX(), mouseClick.getY());
+		transformer.translate(mouseClick.getX()-mouseReleased.getX(), mouseClick.getY()-mouseReleased.getY());
 		g2d.setTransform(transformer);
+	    mouseClick = mouseReleased;
 		g2d.scale(ZOOM, ZOOM);
 		Font f = new Font("Name",1,8);
 		g2d.setFont(f);
@@ -417,8 +419,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	    //this.getGraphics().translate((int) (evt.getX()-this.mouseClick.getX()), (int) (evt.getY()-this.mouseClick.getY()));
 	    //repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
 	    this.needRepaint = true;
-	    this.mouseClick = evt.getPoint();
 	    repaint();
+	    this.mouseReleased = evt.getPoint();
 	}
 
 	@Override
@@ -428,7 +430,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	}
 	
 	public void MouseReleased(MouseEvent evt){
-	  //  repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
+
 	}
 
 	@Override

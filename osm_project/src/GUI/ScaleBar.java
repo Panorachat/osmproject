@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import map.Node;
 import map.Surface;
 
 public class ScaleBar extends JPanel{
@@ -39,12 +40,6 @@ public class ScaleBar extends JPanel{
 		this.initProperties();
 		this.img = new ImageIcon("img/scaleBar.png");
 		this.converted = scaleImage(this.img.getImage(), barWidth, barHeight/2);
-		
-		double lat1 = this.ancestor.getB().getMaxLat();
-		double lon1 = this.ancestor.getB().getMaxLon();
-		double lat2 = ((this.ancestor.getB().getMaxLat() - this.ancestor.getB().getMinLat())*1/6);
-		double lon2 = lon1;
-
 
 		System.out.println("x offset : " + barX_offset + " y offset : " + barY_offset + " width : " + barWidth + " height : " + barHeight);
 		this.setOpaque(true);
@@ -55,7 +50,7 @@ public class ScaleBar extends JPanel{
 		this.barPanel.setOpaque(true);
 		this.setLayout(new BorderLayout());
 		this.add(barPanel, BorderLayout.NORTH);
-		String label = getDistanceScale(lat1, lon1, lat2, lon2) + " m";
+		String label = 500/this.ancestor.getZoom() + " m";
 		this.distanceLabel = new JLabel(label);
 		this.add(distanceLabel, BorderLayout.SOUTH);
 		this.distanceLabel.setOpaque(true);
@@ -68,11 +63,20 @@ public class ScaleBar extends JPanel{
 		this.barY_offset = 550;
 	}
 	
-	public int getDistanceScale(double lat1, double lon1, double lat2, double lon2){
+	public int getDistanceScale(){
 		DecimalFormat decimalFormat = (DecimalFormat)DecimalFormat.getInstance();
 		decimalFormat.applyPattern("###0.##########");
 		int r = 6366; // Rayon de la terre
-				
+		double lat1 = this.ancestor.getB().getMinLat();
+		double lat2 = lat1;
+		double lon1 = this.ancestor.getB().getMinLon();
+		double lon2 = lon1;
+		Node n1 = new Node(-1, lon1, lat1, false);
+		Node n2 = new Node(-2, lon2, lat2, false);
+		while(this.ancestor.getDistance(n1, n2)<180){
+			lon2 += 0.0000000001;
+			n2.setLon(lon2);
+		}
 		// Conversion en radians
 		double lat1_rad = Math.toRadians(lat1);
 		double lon1_rad = Math.toRadians(lon1);
@@ -81,13 +85,13 @@ public class ScaleBar extends JPanel{
 		
 		// Calcul de la distance
 		double d = (2*Math.asin(Math.sqrt(
-				Math.pow((Math.sin((lat1_rad-lat2_rad)/2)), 2)
+				Math.pow((Math.sin((lat2_rad-lat1_rad)/2)), 2)
 				+
 				Math.cos(lat1_rad)*Math.cos(lat2_rad)*
-				(Math.pow(Math.sin(((lon1_rad-lon2_rad)/2)), 2))
+				(Math.pow(Math.sin(((lon2_rad-lon1_rad)/2)), 2))
 				)))*r;
 		
-		return (int) d;
+		return (int) (d/(this.ancestor.getZoom()));
 	}
 	
 	public static ImageIcon scaleImage(Image source, int width, int height) {
@@ -98,4 +102,10 @@ public class ScaleBar extends JPanel{
 	    g.dispose();
 	    return new ImageIcon(img);
 	}
+	
+//	public void paintComponent(Graphics g){
+//		super.paintComponent(g);
+//		String str = 500/this.ancestor.getZoom() + " m";
+//		g.drawString(str, 10, this.getHeight()/2);
+//	}
 }
