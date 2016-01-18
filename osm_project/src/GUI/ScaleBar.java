@@ -50,7 +50,7 @@ public class ScaleBar extends JPanel{
 		this.barPanel.setOpaque(true);
 		this.setLayout(new BorderLayout());
 		this.add(barPanel, BorderLayout.NORTH);
-		String label = 500/this.ancestor.getZoom() + " m";
+		String label = getDistanceScale() + " m";
 		this.distanceLabel = new JLabel(label);
 		this.add(distanceLabel, BorderLayout.SOUTH);
 		this.distanceLabel.setOpaque(true);
@@ -70,13 +70,13 @@ public class ScaleBar extends JPanel{
 		double lat1 = this.ancestor.getB().getMinLat();
 		double lat2 = lat1;
 		double lon1 = this.ancestor.getB().getMinLon();
-		double lon2 = lon1;
-		Node n1 = new Node(-1, lon1, lat1, false);
-		Node n2 = new Node(-2, lon2, lat2, false);
-		while(this.ancestor.getDistance(n1, n2)<180){
-			lon2 += 0.0000000001;
-			n2.setLon(lon2);
-		}
+		double lon2 = this.ancestor.getB().getMaxLon();
+//		Node n1 = new Node(-1, lon1, lat1, false);
+//		Node n2 = new Node(-2, lon2, lat2, false);
+//		while(this.ancestor.getDistance(n1, n2)<180){
+//			lon2 += 0.0000000001;
+//			n2.setLon(lon2);
+//		}
 		// Conversion en radians
 		double lat1_rad = Math.toRadians(lat1);
 		double lon1_rad = Math.toRadians(lon1);
@@ -91,7 +91,7 @@ public class ScaleBar extends JPanel{
 				(Math.pow(Math.sin(((lon2_rad-lon1_rad)/2)), 2))
 				)))*r;
 		
-		return (int) (d/(this.ancestor.getZoom()));
+		return (int) ((d)/(this.ancestor.getZoom()));
 	}
 	
 	public static ImageIcon scaleImage(Image source, int width, int height) {
