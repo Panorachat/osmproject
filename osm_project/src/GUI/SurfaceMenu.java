@@ -5,12 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 public final class SurfaceMenu extends JLayeredPane implements ActionListener{
 	private static final long serialVersionUID = 1L;
-	private JPanel menuZoom = new JPanel();
-	private JPanel menuSearch = new JPanel();
 	private Dessin ancestor;
 	
 
@@ -20,6 +17,7 @@ public final class SurfaceMenu extends JLayeredPane implements ActionListener{
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.add(new ZoomMenu(this.ancestor));
 		this.add(new SearchMenu(this.ancestor));
+		this.add(new SelectForm(this.ancestor));
 	}
 	
 	@Override
