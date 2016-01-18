@@ -37,13 +37,12 @@ public class ScaleBar extends JPanel{
 		this.ancestor = window;
 
 		this.initProperties();
-	//	this.setBounds(barX_offset, barY_offset, barWidth, barHeight);
 		this.img = new ImageIcon("img/scaleBar.png");
 		this.converted = scaleImage(this.img.getImage(), barWidth, barHeight/2);
 		
 		double lat1 = this.ancestor.getB().getMaxLat();
 		double lon1 = this.ancestor.getB().getMaxLon();
-		double lat2 = ((this.ancestor.getB().getMaxLat())-(this.ancestor.getB().getMinLat()))*4/5;
+		double lat2 = ((this.ancestor.getB().getMaxLat() - this.ancestor.getB().getMinLat())*1/6);
 		double lon2 = lon1;
 
 
@@ -59,7 +58,6 @@ public class ScaleBar extends JPanel{
 		String label = getDistanceScale(lat1, lon1, lat2, lon2) + " m";
 		this.distanceLabel = new JLabel(label);
 		this.add(distanceLabel, BorderLayout.SOUTH);
-		//this.distanceLabel.setBounds(0, 0, this.getWidth(), this.getHeight()/2);
 		this.distanceLabel.setOpaque(true);
 	}
 	

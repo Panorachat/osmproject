@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
@@ -25,18 +26,24 @@ import GUI.Dessin;
 import GUI.ScaleBar;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Stroke;
 
-public class Surface extends JPanel implements ActionListener, MouseWheelListener, MouseMotionListener {
+public class Surface extends JPanel implements ActionListener, MouseListener, MouseWheelListener, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
 	Parser p = new Parser();
 	static private Bound b = new Bound();
+	
 	private double ZOOM = 1;
-	private final double MINZOOM = 1; // Minimal zoom
+	private final double MINZOOM = 0.5; // Minimal zoom
 	private final double MAXZOOM = 10; // Maximal zoom
 	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
+	
 	double position;//Determine position d'un point
 	private ScaleBar scaleBar;
+	
+	private Point mouseClick = new Point(5, 5);
+	private AffineTransform transformer;
 	
 	private boolean needRepaint = true;
 	
@@ -112,6 +119,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		}
 		else{
 			super.paintComponent(g);
+			g.clearRect(0, 0, this.getWidth(), this.getHeight());
 			g.drawImage(mapTemp, 0, 0, null);
 		}
 		System.out.println("needRepaint : " + needRepaint);
@@ -128,6 +136,9 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setPaint(Color.gray);
+		this.transformer = new AffineTransform();
+		transformer.translate(mouseClick.getX(), mouseClick.getY());
+		g2d.setTransform(transformer);
 		g2d.scale(ZOOM, ZOOM);
 		Font f = new Font("Name",1,8);
 		g2d.setFont(f);
@@ -210,6 +221,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		//Mise en place de l'interface utilisateur
 		this.ancestor.getUI().setBounds(this.ancestor.getWidth()-200, 0, this.ancestor.getUI().getWidth(),
 				this.ancestor.getHeight());
+		this.ancestor.getUI().repaint();
 		
 		//this.scaleBar.repaint();
 	}
@@ -381,6 +393,7 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		System.out.println("scale : " + this.ancestor.getMap().getZoom());
         System.out.println(this.ancestor.getUI().getWidth());
         this.needRepaint = true;
+        repaint();
 	}
 	
 	@Override
@@ -388,9 +401,11 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 		// TODO Auto-generated method stub
 		evt.translatePoint(evt.getComponent().getLocation().x, evt.getComponent()
 	            .getLocation().y);
-	    this.setLocation(evt.getX(), evt.getY());
+	    //this.getGraphics().translate((int) (evt.getX()-this.mouseClick.getX()), (int) (evt.getY()-this.mouseClick.getY()));
 	    //repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
-	    revalidate();
+	    this.needRepaint = true;;
+	    this.mouseClick = evt.getPoint();
+	    repaint();
 	}
 
 	@Override
@@ -401,5 +416,35 @@ public class Surface extends JPanel implements ActionListener, MouseWheelListene
 	
 	public void MouseReleased(MouseEvent evt){
 	  //  repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent evt) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent evt) {
+		// TODO Auto-generated method stub
+		this.mouseClick = evt.getPoint();
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
