@@ -5,6 +5,8 @@ import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;*/
 
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 public class Node extends JPanel {
 
@@ -13,7 +15,33 @@ public class Node extends JPanel {
 	private double lon;
 	private double lat;
 	private boolean visibility;
+	private ArrayList<String> tagList = new ArrayList<String>();
+	private ArrayList<String> valueList = new ArrayList<String>();
+	
+	
+	public void addTag(String e) {
+		this.tagList.add(e);
+	}
+	public void addValue(String e) {
+		this.valueList.add(e);
+	}
 
+	public int getTagSize() {
+		return this.tagList.size();
+	}
+
+	public int getValueSize() {
+		return this.valueList.size();
+	}
+	
+	public String getValue(int i) {
+		return valueList.get(i);
+	}
+	
+	public String getTag(int i) {
+		return tagList.get(i);
+	}
+	
 	public long getId(){
 		return id;
 	}

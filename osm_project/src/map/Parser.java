@@ -14,8 +14,7 @@ public class Parser {
 	static Element racine;
 	public static ArrayList<Node> Nodes;
 	public static ArrayList<Way> Ways ;
-	ArrayList<String> ListeTag = new ArrayList<String>();
-
+	
 	
 	/**
 	 * Constructeur de la fonction Parser
@@ -127,7 +126,16 @@ public class Parser {
 		Iterator<Element> i = listNode.iterator();
 		while(i.hasNext()){
 			Element courant = (Element)i.next();
-			nodeList.add(new Node(courant.getAttributeValue("id"),courant.getAttributeValue("lon"),courant.getAttributeValue("lat"),courant.getAttributeValue("visibility")));
+			Node n = new Node (courant.getAttributeValue("id"),courant.getAttributeValue("lon"),courant.getAttributeValue("lat"),courant.getAttributeValue("visibility"));
+			
+			List<Element> listValue = courant.getChildren("tag");
+            Iterator<Element> value = listValue.iterator();
+            while(value.hasNext()) {
+                Element Valuecourant = (Element) value.next();
+                n.addTag(Valuecourant.getAttributeValue("k"));
+                n.addValue(Valuecourant.getAttributeValue("v"));
+            }
+            nodeList.add(n);
 		}
 		return nodeList;
 	}
