@@ -211,6 +211,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 				figure.moveTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
 
 				g2d.setPaint(Color.black);
+				imagePI(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
 				nameWay(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
 				g2d.setStroke(s);
 				r++;
@@ -312,39 +313,51 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 						g2d.fill(figure);
 						break;
 					}
-					break;
-				case "amenity" :
-					g2d.setPaint(Color_Map.amenity_color.getColor());
-					g2d.fill(figure);
-					break;
 				}
 			}
 		}
 
-		public void nameWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
-			for (int i = 0; i < w.getTagSize()-1; i++) {
-				if (w.getTag().contains("highway") || w.getTag().contains("places") || w.getTag().contains("route")) {
+	public void nameWay(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
+		for (int i = 0; i < w.getTagSize() - 1; i++) {
+			if (w.getTag().contains("highway") || w.getTag().contains("places") || w.getTag().contains("route")) {
 				tag = w.getTag(i);
 				value = w.getValue(i);
-				
+
 				switch (tag) {
 				case "name":
 					AffineTransform old = g2d.getTransform(); // sert pour remettre la rotation du graphique a 0
-					//String sub = value.substring(0,value.length()-r);
-					if (getDistance(n1,n2) >= g2d.getFontMetrics(f).stringWidth(value)) {
-						displayName(g2d,w,figure,n1,n2);
+					// String sub = value.substring(0,value.length()-r);
+					if (getDistance(n1, n2) >= g2d.getFontMetrics(f).stringWidth(value)) {
+						displayName(g2d, w, figure, n1, n2);
 					}
 					g2d.setTransform(old);
 					break;
 				}
+			}
+		}
+	}
+	
+	public void imagePI(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
+		Image img;
+		for (int i = 0; i < w.getTagSize()-1; i++) {
+			tag = w.getTag(i);
+			value = w.getValue(i);
+			if (tag == "amenity") {
+				try {
+					img = ImageIO.read(new File("img/point_interet/" + tag + "/" + value + ".png"));
+					g2d.drawImage(img, (int) getPosition(n1.getLat(), 'x'), (int) getPosition(n1.getLon(), 'y'), 16, 16, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}
-		
-		public Dessin getAncestor(){
-			return this.ancestor;
-		}
-		
+	}
+
+	public Dessin getAncestor() {
+		return this.ancestor;
+	}
+
 	public void zoom(boolean BUTTONVALUE){
 		// Using zoom limits values
 		if(this.ZOOM >= MAXZOOM && BUTTONVALUE){
