@@ -23,6 +23,7 @@ public class Dessin extends JFrame{
     private SurfaceMenu UI;
     private ZoomMenu zoomMenu;
     private ScaleBar scaleBar;
+    private MenuBar menu;
 
     public Dessin() {
         initUI();
@@ -37,7 +38,8 @@ public class Dessin extends JFrame{
         setBounds(100, 100, res_x, res_y);
         this.setContentPane(contentPane);
         this.UI = new SurfaceMenu(this);
-
+        menu = new MenuBar();
+        this.setJMenuBar(menu.getMenuBar());
         this.map = new Surface(this);
 
         this.zoomMenu = new ZoomMenu(this);
