@@ -42,9 +42,9 @@ public class Dessin extends JFrame{
         menuBar = new MenuBar();
         setJMenuBar(menuBar.getMenuBar());
         map = new Surface(this);
-        zoomMenu = new ZoomMenu(this);
+    //    zoomMenu = new ZoomMenu(this);
         selectForm = new SelectForm(this);
-        zoomMenu.setOpaque(true);
+       // zoomMenu.setOpaque(true);
         UI.setOpaque(true);
         selectForm.setOpaque(true);
         

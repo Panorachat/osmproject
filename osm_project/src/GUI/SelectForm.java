@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -18,20 +20,22 @@ public class SelectForm extends JPanel{
 	public SelectForm(Dessin frame){
 		this.ancestor = frame;
 		setBackground(Color.white);
-		
+		JLabel title = new JLabel("Points d'intérêt :\n");
+		add(title);
 		cb = new JCheckBox[maxCB];		
-		cb[0] = new JCheckBox("Toilet");
-		cb[1] = new JCheckBox("Restaurant");
-		cb[2] = new JCheckBox("Café");
-		cb[3] = new JCheckBox("École");
-		cb[4] = new JCheckBox("Université");
+		cb[0] = new JCheckBox("Parkings");
+		cb[1] = new JCheckBox("Restaurants");
+		cb[2] = new JCheckBox("Cafés");
+		cb[3] = new JCheckBox("Écoles");
+		cb[4] = new JCheckBox("Universités");
 
 		for(int i=0;i<maxCB;i++){
 			cb[i].addActionListener(new StateListener());
 			add(cb[i]);
 		}
-		this.setBounds(20, 350, this.getWidth(), this.getHeight());
+		this.setBounds(30, 350, 140, 170);
 		this.setOpaque(true);
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	public class StateListener implements ActionListener{
