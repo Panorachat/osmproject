@@ -14,7 +14,7 @@ public class MenuBar{
 		menuBar = new JMenuBar();
 		menu = new JMenu("Fichier");
 		menuBar.add(menu);
-		menu = new JMenu("Sélection");
+		menu = new JMenu("Selection");
 		menuBar.add(menu);
 	}
 	

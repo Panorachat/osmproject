@@ -416,7 +416,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	            .getLocation().y);
 	    //this.getGraphics().translate((int) (evt.getX()-this.mouseClick.getX()), (int) (evt.getY()-this.mouseClick.getY()));
 	    //repaint(0, 0, this.getWidth() - this.ancestor.getUI().getWidth(), this.getHeight());
-	    this.needRepaint = true;;
+	    this.needRepaint = true;
 	    this.mouseClick = evt.getPoint();
 	    repaint();
 	}
