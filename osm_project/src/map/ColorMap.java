@@ -16,9 +16,14 @@ public enum ColorMap {
     secondary_color(255, 255, 102),
     tertiary_color(224, 224, 224),
 	// couleur pour "amenity" :
-	amenity_color(113, 113, 198);
+	amenity_color(113, 113, 198),
+	//couleur pur "natural"
+    water_color(30, 144, 255),
+    grassland_color(60, 179, 113),
+    //couleur pour railway
+    tram_color(255, 165, 0);
 
-    //here begins the serious shit
+    
     private final Color tag_color;
 
     private ColorMap(int R, int V, int B) {
