@@ -50,13 +50,16 @@ public class SelectForm extends JPanel implements ActionListener{
 				//masquer
 			}
 			switch(((JCheckBox)e.getSource()).getText()){
-			case "Parking":
+			case "Parkings":
 				if(((JCheckBox)e.getSource()).isSelected()){
-					this.ancestor.getMap().repaint();
+					this.ancestor.getMap().setParking(true);
 					this.ancestor.getMap().afficherPI("parking");
-				}else {
-					//Masquer 
 				}
+				else {
+					this.ancestor.getMap().setParking(false);
+					this.ancestor.getMap().repaint();
+				}
+				repaint();
 				break;
 			case "Restaurants":
 				if(((JCheckBox)e.getSource()).isSelected()){

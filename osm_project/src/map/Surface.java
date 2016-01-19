@@ -46,7 +46,9 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	private Point mouseReleased = new Point(this.getWidth()/2, this.getHeight()/2);
 	private AffineTransform transformer;
 	Graphics2D g2d;
+	
 	private boolean needRepaint = true;
+	private boolean parking = true;
 	
 	int r=0;//Nombre de murs
 	String tag = "";
@@ -78,6 +80,10 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 
 	public void setZoom(double x){
 		this.ZOOM=x;
+	}
+	
+	public void setParking(boolean b){
+		this.parking = true;
 	}
 	
 	public Bound getB(){
@@ -123,6 +129,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 			super.paintComponent(g);
 			g.drawImage(mapTemp, 0, 0, null);
 			this.ancestor.getUI().repaint();
+
 		}
 	}
 	
@@ -356,11 +363,11 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 			n1 = p.getNodes().get(wi);
 			figure.moveTo(getPosition(n1.getLat(), 'x'),
 					getPosition(n1.getLon(), 'y'));
-			imagePI(g2d, n1, figure, PI);
+			imagePI(this.getGraphics(), n1, figure, PI);
 		}
 	}
 
-	public void imagePI(Graphics2D g2d, Node n, GeneralPath figure) {
+	public void imagePI(Graphics g2d, Node n, GeneralPath figure) {
 		Image img;
 		for (int i = 0; i < n.getTagSize() - 1; i++) {
 			tag = n.getTag(i);
@@ -377,7 +384,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		}
 	}
 
-	public void imagePI(Graphics2D g2d, Node n, GeneralPath figure, String PI) {
+	public void imagePI(Graphics g2d, Node n, GeneralPath figure, String PI) {
 		Image img;
 		for (int i = 0; i < n.getTagSize() - 1; i++) {
 			tag = n.getTag(i);
