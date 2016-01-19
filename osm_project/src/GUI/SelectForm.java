@@ -22,12 +22,12 @@ public class SelectForm extends JPanel{
 	public SelectForm(Dessin frame){
 		this.ancestor = frame;
 		setBackground(Color.white);
-		JLabel title = new JLabel("Points d'intÃ©rÃªt :\n");
+		JLabel title = new JLabel("Points d'intérêt :\n");
 		add(title);
 		cb = new JCheckBox[maxCB];		
 		cb[0] = new JCheckBox("Parkings");
 		cb[1] = new JCheckBox("Restaurants");
-		cb[2] = new JCheckBox("CafÃ©s");
+		cb[2] = new JCheckBox("Cafés");
 		cb[3] = new JCheckBox("Boulangeries");
 		cb[4] = new JCheckBox("Tout");
 
@@ -43,7 +43,7 @@ public class SelectForm extends JPanel{
 	public class StateListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - Ã©tat : " + ((JCheckBox)e.getSource()).isSelected());
+			System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - État : " + ((JCheckBox)e.getSource()).isSelected());
 			switch(((JCheckBox)e.getSource()).getText()){
 				case "Parking":
 					if(((JCheckBox)e.getSource()).isSelected()){
@@ -59,7 +59,7 @@ public class SelectForm extends JPanel{
 						//Masquer 
 					}
 				break;
-				case "CafÃ©s":
+				case "Cafés":
 					if(((JCheckBox)e.getSource()).isSelected()){
 						//Afficher 
 					}else {
@@ -75,7 +75,8 @@ public class SelectForm extends JPanel{
 				break;
 				case "Tout":
 					if(((JCheckBox)e.getSource()).isSelected()){
-						//Afficher 
+						
+						//Afficher
 					}else {
 						//Masquer 
 					}

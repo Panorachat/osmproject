@@ -21,7 +21,7 @@ public class MenuBar{
 		menuItem2 = new JMenuItem("Fermer le fichier actuel");
 		menu.add(menuItem2);
 		menuBar.add(menu);
-		menu = new JMenu("Ã‰dition");
+		menu = new JMenu("Édition");
 		menuItem3 = new JMenuItem("Placer un marqueur");
 		menu.add(menuItem3);
 		menuItem4 = new JMenuItem("Annuler le marquage");
