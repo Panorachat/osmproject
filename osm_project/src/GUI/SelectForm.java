@@ -12,27 +12,27 @@ import javax.swing.JPanel;
 import map.Surface;
 
 
-public class SelectForm extends JPanel{
+public class SelectForm extends JPanel implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
-	private  Dessin ancestor;
+	private Dessin ancestor;
 	private JCheckBox[] cb;
 	private final int maxCB = 5;
 
 	public SelectForm(Dessin frame){
 		this.ancestor = frame;
 		setBackground(Color.white);
-		JLabel title = new JLabel("Points d'intérêt :\n");
+		JLabel title = new JLabel("Points d'intï¿½rï¿½t :\n");
 		add(title);
 		cb = new JCheckBox[maxCB];		
 		cb[0] = new JCheckBox("Parkings");
 		cb[1] = new JCheckBox("Restaurants");
-		cb[2] = new JCheckBox("Cafés");
+		cb[2] = new JCheckBox("Cafï¿½s");
 		cb[3] = new JCheckBox("Boulangeries");
 		cb[4] = new JCheckBox("Tout");
 
 		for(int i=0;i<maxCB;i++){
-			cb[i].addActionListener(new StateListener());
+			cb[i].addActionListener(this);
 			add(cb[i]);
 		}
 		this.setBounds(30, 350, 140, 170);
@@ -40,20 +40,19 @@ public class SelectForm extends JPanel{
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
-	public class StateListener implements ActionListener{
-		@Override
+	//public class StateListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - État : " + ((JCheckBox)e.getSource()).isSelected());
+			System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - ï¿½tat : " + ((JCheckBox)e.getSource()).isSelected());
 			if(((JCheckBox)e.getSource()).isSelected()){
 				//afficherPI(((JCheckBox)e.getSource()).getText());
 			}
 			else{
 				//masquer
 			}
-			/*switch(((JCheckBox)e.getSource()).getText()){
+			switch(((JCheckBox)e.getSource()).getText()){
 			case "Parking":
 				if(((JCheckBox)e.getSource()).isSelected()){
-					//afficherPI("Parking"); 
+					this.ancestor.getMap().afficherPI("Parking"); 
 				}else {
 					//Masquer 
 				}
@@ -65,7 +64,7 @@ public class SelectForm extends JPanel{
 					//Masquer 
 				}
 				break;
-			case "Cafés":
+			case "Cafï¿½s":
 				if(((JCheckBox)e.getSource()).isSelected()){
 					//Afficher 
 				}else {
@@ -86,7 +85,7 @@ public class SelectForm extends JPanel{
 					//Masquer 
 				}
 				break;
-			}*/
+			}
 		}
 	}
-}
+//}
