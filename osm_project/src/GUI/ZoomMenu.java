@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,9 +18,11 @@ public class ZoomMenu extends JPanel implements ActionListener {
 		Button more = new Button("more");
 		more.setSize(70, 70);
 		more.addActionListener(this);
+		more.setBackground(Color.GRAY);
 		Button less = new Button("less");
 		less.setSize(70, 70);
 		less.addActionListener(this);
+		less.setBackground(Color.GRAY);
 		this.setBounds(30, 200, 140, 70);
 		this.setLayout(new BorderLayout()); // ajout du layout manager qui permet la disposition des elements NORTH, SOUTH, CENTER, EAST ou WEST
 		this.add(more, BorderLayout.WEST);
@@ -50,6 +53,10 @@ public class ZoomMenu extends JPanel implements ActionListener {
 		System.out.println("scale : " + this.ancestor.getMap().getZoom());
         System.out.println(this.getWidth());
         
+	}
+	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 	}
 
 }

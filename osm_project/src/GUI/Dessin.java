@@ -21,7 +21,6 @@ public class Dessin extends JFrame{
 
     private Surface map;
     private SurfaceMenu UI;
-    private ZoomMenu zoomMenu;
     private ScaleBar scaleBar;
     private Menu menuBar;
     private SelectForm selectForm;
@@ -42,9 +41,7 @@ public class Dessin extends JFrame{
         menuBar = new Menu(this);
         setJMenuBar(menuBar.getMenuBar());
         map = new Surface(this);
-    //    zoomMenu = new ZoomMenu(this);
         selectForm = new SelectForm(this);
-       // zoomMenu.setOpaque(true);
         UI.setOpaque(true);
         selectForm.setOpaque(true);
         
@@ -63,11 +60,6 @@ public class Dessin extends JFrame{
 	public void setMap(Surface map) {
 		this.map = map;
 	}
-	
-	public ZoomMenu getZoomMenu() {
-		return zoomMenu;
-	}
-
 	public ScaleBar getScaleBar(){
 		return this.scaleBar;
 	}

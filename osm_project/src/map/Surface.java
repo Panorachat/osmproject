@@ -37,7 +37,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	private double ZOOM = 1;
 	private final double MINZOOM = 0.5; // Minimal zoom
 	private final double MAXZOOM = 10; // Maximal zoom
-	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
+	private final double ZOOMSTEP = 0.2d; // Value of zoom increment
 	
 	double position;//Determine position d'un point
 	private ScaleBar scaleBar;
@@ -128,9 +128,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		else{
 			super.paintComponent(g);
 			g.drawImage(mapTemp, 0, 0, null);
-			this.ancestor.getUI().repaint();
-
 		}
+		this.ancestor.getUI().repaint();
 	}
 	
 	public void setNeedRepaint(boolean b){
@@ -227,13 +226,6 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		}
 
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
-		
-		//Mise en place de l'interface utilisateur
-		this.ancestor.getUI().setBounds(this.ancestor.getWidth()-200, 0, this.ancestor.getUI().getWidth(),
-				this.ancestor.getHeight());
-		this.ancestor.getUI().repaint();
-		
-		//this.scaleBar.repaint();
 	}
 	/*public void drawBuildingString(Graphics2D g2d, Way w){
 		g2d.setPaint(Color.BLACK);
@@ -348,26 +340,20 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	
 
 	public void afficherAllPI() {
-		GeneralPath figure = new GeneralPath();
 		for (int wi = 0; wi < p.getNodes().size(); wi++) {
 			n1 = p.getNodes().get(wi);
-			figure.moveTo(getPosition(n1.getLat(), 'x'),
-					getPosition(n1.getLon(), 'y'));
-			imagePI(g2d, n1, figure);
+			imagePI(g2d, n1);
 		}
 	}
 
 	public void afficherPI(String PI) {
-		GeneralPath figure = new GeneralPath();
 		for (int wi = 0; wi < p.getNodes().size(); wi++) {
 			n1 = p.getNodes().get(wi);
-			figure.moveTo(getPosition(n1.getLat(), 'x'),
-					getPosition(n1.getLon(), 'y'));
-			imagePI(this.getGraphics(), n1, figure, PI);
+			imagePI(this.getGraphics(), n1, PI);
 		}
 	}
 
-	public void imagePI(Graphics g2d, Node n, GeneralPath figure) {
+	public void imagePI(Graphics g2d, Node n) {
 		Image img;
 		for (int i = 0; i < n.getTagSize() - 1; i++) {
 			tag = n.getTag(i);
@@ -375,8 +361,9 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 			try {
 				img = ImageIO.read(new File("img/point_interet/" + tag + "/"
 						+ value + ".png"));
-				g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
-						(int) getPosition(n.getLon(), 'y'), 15, 15, this);
+				g2d.drawImage(img, (int)( getPosition(n.getLat(), 'x')*this.ZOOM),
+						(int) (getPosition(n.getLon(), 'y')*this.ZOOM), 15, 15,
+						this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// e.printStackTrace();
@@ -384,7 +371,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		}
 	}
 
-	public void imagePI(Graphics g2d, Node n, GeneralPath figure, String PI) {
+	public void imagePI(Graphics g2d, Node n, String PI) {
 		Image img;
 		for (int i = 0; i < n.getTagSize() - 1; i++) {
 			tag = n.getTag(i);
@@ -395,8 +382,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 					try {
 						img = ImageIO.read(new File("img/point_interet/" + tag
 								+ "/" + value + ".png"));
-						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
-								(int) getPosition(n.getLon(), 'y'), 15, 15,
+						g2d.drawImage(img, (int)( getPosition(n.getLat(), 'x')*this.ZOOM),
+								(int) (getPosition(n.getLon(), 'y')*this.ZOOM), 15, 15,
 								this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -409,8 +396,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 					try {
 						img = ImageIO.read(new File("img/point_interet/" + tag
 								+ "/" + value + ".png"));
-						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
-								(int) getPosition(n.getLon(), 'y'), 15, 15,
+						g2d.drawImage(img, (int)( getPosition(n.getLat(), 'x')*this.ZOOM),
+								(int) (getPosition(n.getLon(), 'y')*this.ZOOM), 15, 15,
 								this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -423,8 +410,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 					try {
 						img = ImageIO.read(new File("img/point_interet/" + tag
 								+ "/" + value + ".png"));
-						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
-								(int) getPosition(n.getLon(), 'y'), 15, 15,
+						g2d.drawImage(img, (int)( getPosition(n.getLat(), 'x')*this.ZOOM),
+								(int) (getPosition(n.getLon(), 'y')*this.ZOOM), 15, 15,
 								this);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
