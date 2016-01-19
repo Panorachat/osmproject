@@ -37,7 +37,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	private double ZOOM = 1;
 	private final double MINZOOM = 0.5; // Minimal zoom
 	private final double MAXZOOM = 10; // Maximal zoom
-	private final double ZOOMSTEP = 0.4d; // Value of zoom increment
+	private final double ZOOMSTEP = 0.2d; // Value of zoom increment
 	
 	double position;//Determine position d'un point
 	private ScaleBar scaleBar;

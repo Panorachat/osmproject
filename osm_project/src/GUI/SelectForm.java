@@ -63,10 +63,14 @@ public class SelectForm extends JPanel implements ActionListener{
 				break;
 			case "Restaurants":
 				if(((JCheckBox)e.getSource()).isSelected()){
-					//Afficher 
-				}else {
-					//Masquer 
+					this.ancestor.getMap().setParking(true);
+					this.ancestor.getMap().afficherPI("restaurant");
 				}
+				else {
+					this.ancestor.getMap().setParking(false);
+					this.ancestor.getMap().repaint();
+				}
+				repaint();
 				break;
 			case "Caf�s":
 				if(((JCheckBox)e.getSource()).isSelected()){
@@ -77,17 +81,25 @@ public class SelectForm extends JPanel implements ActionListener{
 				break;
 			case "Boulangerie":
 				if(((JCheckBox)e.getSource()).isSelected()){
-					//Afficher 
-				}else {
-					//Masquer 
+					this.ancestor.getMap().setParking(true);
+					this.ancestor.getMap().afficherPI("backery");
 				}
+				else {
+					this.ancestor.getMap().setParking(false);
+					this.ancestor.getMap().repaint();
+				}
+				repaint();
 				break;
 			case "Tout":
 				if(((JCheckBox)e.getSource()).isSelected()){
-					//Afficher
-				}else {
-					//Masquer 
+					this.ancestor.getMap().setParking(true);
+					this.ancestor.getMap().afficherAllPI();
 				}
+				else {
+					this.ancestor.getMap().setParking(false);
+					this.ancestor.getMap().repaint();
+				}
+				repaint();
 				break;
 			}
 		}
