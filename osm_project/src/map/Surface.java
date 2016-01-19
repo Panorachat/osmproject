@@ -135,7 +135,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	
 	public void initMap(Graphics g){
 		g2d = (Graphics2D) g.create();
-		g2d.setPaint(Color_Map.background_color.getColor());
+		g2d.setPaint(ColorMap.background_color.getColor());
 		g2d.fillRect(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
@@ -279,42 +279,42 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 				switch (tag) {
 				case "building":
 					//g2d.setStroke(new BasicStroke(2));
-					g2d.setPaint(Color_Map.building_color.getColor());
+					g2d.setPaint(ColorMap.building_color.getColor());
 					g2d.fill(figure);
 					//g2d.setPaint(Color.BLACK);
 					break;
 				case "highway":
 					switch (value) {
 					case "motorway" :
-						g2d.setPaint(Color_Map.motorway_color.getColor());
+						g2d.setPaint(ColorMap.motorway_color.getColor());
 						g2d.fill(figure);
 						break;
 					case "trunk" :
-						g2d.setPaint(Color_Map.trunk_color.getColor());
+						g2d.setPaint(ColorMap.trunk_color.getColor());
 						g2d.fill(figure);
 						break;
 					case "primary" :
-						g2d.setPaint(Color_Map.primary_color.getColor());
+						g2d.setPaint(ColorMap.primary_color.getColor());
 						g2d.fill(figure);
 						break;
 					case "secondary" :
-						g2d.setPaint(Color_Map.secondary_color.getColor());
+						g2d.setPaint(ColorMap.secondary_color.getColor());
 						g2d.fill(figure);
 						break;
 					case "tertiary"  :
-						g2d.setPaint(Color_Map.tertiary_color.getColor());
+						g2d.setPaint(ColorMap.tertiary_color.getColor());
 						g2d.fill(figure);
 						break;
 					/*case "pedestrian"  :
-						g2d.setPaint(Color_Map.pedestrian_color.getColor());
+						g2d.setPaint(ColorMap.pedestrian_color.getColor());
 						g2d.fill(figure);
 						break;					
 					case "residential"  :
-						g2d.setPaint(Color_Map.residential_color.getColor());
+						g2d.setPaint(ColorMap.residential_color.getColor());
 						g2d.fill(figure);
 						break;*/					
 					case "unclassified":
-						g2d.setPaint(Color_Map.tertiary_color.getColor());
+						g2d.setPaint(ColorMap.tertiary_color.getColor());
 						g2d.fill(figure);
 						break;
 					}
