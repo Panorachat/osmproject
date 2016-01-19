@@ -128,9 +128,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		else{
 			super.paintComponent(g);
 			g.drawImage(mapTemp, 0, 0, null);
-			this.ancestor.getUI().repaint();
-
 		}
+		this.ancestor.getUI().repaint();
 	}
 	
 	public void setNeedRepaint(boolean b){
@@ -227,13 +226,6 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		}
 
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
-		
-		//Mise en place de l'interface utilisateur
-		this.ancestor.getUI().setBounds(this.ancestor.getWidth()-200, 0, this.ancestor.getUI().getWidth(),
-				this.ancestor.getHeight());
-		this.ancestor.getUI().repaint();
-		
-		//this.scaleBar.repaint();
 	}
 	/*public void drawBuildingString(Graphics2D g2d, Way w){
 		g2d.setPaint(Color.BLACK);
