@@ -45,43 +45,47 @@ public class SelectForm extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - État : " + ((JCheckBox)e.getSource()).isSelected());
 			switch(((JCheckBox)e.getSource()).getText()){
-				case "Parking":
-					if(((JCheckBox)e.getSource()).isSelected()){
-						//afficherPI("Parking"); 
-					}else {
-						//Masquer 
-					}
+			case "Parking":
+				if(((JCheckBox)e.getSource()).isSelected()){
+					//afficherPI("Parking"); 
+				}else {
+					//Masquer 
+				}
 				break;
-				case "Restaurants":
-					if(((JCheckBox)e.getSource()).isSelected()){
-						//Afficher 
-					}else {
-						//Masquer 
-					}
+			case "Restaurants":
+				if(((JCheckBox)e.getSource()).isSelected()){
+					//Afficher 
+				}else {
+					//Masquer 
+				}
 				break;
-				case "Cafés":
-					if(((JCheckBox)e.getSource()).isSelected()){
-						//Afficher 
-					}else {
-						//Masquer 
-					}
+			case "Cafés":
+				if(((JCheckBox)e.getSource()).isSelected()){
+					//Afficher 
+				}else {
+					//Masquer 
+				}
 				break;
-				case "Boulangerie":
-					if(((JCheckBox)e.getSource()).isSelected()){
-						//Afficher 
-					}else {
-						//Masquer 
-					}
+			case "Boulangerie":
+				if(((JCheckBox)e.getSource()).isSelected()){
+					//Afficher 
+				}else {
+					//Masquer 
+				}
 				break;
-				case "Tout":
-					if(((JCheckBox)e.getSource()).isSelected()){
-						
-						//Afficher
-					}else {
-						//Masquer 
+			case "Tout":
+				if(((JCheckBox)e.getSource()).isSelected()){
+					for(int i=0;i<maxCB-1;i++){
+						cb[i].setEnabled(false);
 					}
+					//Afficher
+				}else {
+					for(int i=0;i<maxCB-1;i++){
+						cb[i].setEnabled(true);
+					}
+					//Masquer 
+				}
 				break;
-				
 			}
 		}
 	}
