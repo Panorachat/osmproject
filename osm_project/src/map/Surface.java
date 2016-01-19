@@ -48,6 +48,8 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	
 	private boolean needRepaint = true;
 	
+	Graphics2D g2d;
+	
 	int r=0;//Nombre de murs
 	String tag = "";
 	String value = "";
@@ -132,7 +134,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	}
 	
 	public void initMap(Graphics g){
-		Graphics2D g2d = (Graphics2D) g.create();
+		g2d = (Graphics2D) g.create();
 		g2d.setPaint(Color_Map.background_color.getColor());
 		g2d.fillRect(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -214,12 +216,15 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 				figure.moveTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
 
 				g2d.setPaint(Color.black);
-				imagePI(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
 				nameWay(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
 				g2d.setStroke(s);
 				r++;
 			}
 		}
+		afficherAllPI();
+		
+
+		
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
 		
 		//Mise en place de l'interface utilisateur
@@ -259,12 +264,9 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		//WIP :affiche le nom des rues suivant le bon angle 
 		public void displayName(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2) {
 			double distanceN1N3 = getDistance(getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'),getPosition(n1.getLat(), 'x'),getPosition(n2.getLon(), 'y'));
-			//double distanceN2N3 = getDistance(getPosition(n2.getLat(), 'x'),getPosition(n2.getLon(), 'y'),getPosition(n1.getLat(), 'x'),getPosition(n2.getLon(), 'y'));
 			double distanceN1N2 = getDistance(n1,n2);
 			double beta = Math.acos(distanceN1N3/distanceN1N2);
-			//System.out.println(distanceN1N3 + " / " + distanceN1N2 + " = " + distanceN1N3/distanceN1N2 + " | " + beta  + " | " + Math.acos(0));
 			g2d.rotate(-(Math.PI/2)+beta,getPosition(n1.getLat(), 'x'),getPosition(n1.getLon(), 'y'));
-			//figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y')+50);
 			g2d.setPaint(Color.BLACK);
 			g2d.drawString(value, (float) (getPosition(n1.getLat(), 'x')), (float) (getPosition(n1.getLon(), 'y')));
 			//figure.closePath();
@@ -303,14 +305,14 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 						g2d.setPaint(Color_Map.tertiary_color.getColor());
 						g2d.fill(figure);
 						break;
-					case "pedestrian"  :
+					/*case "pedestrian"  :
 						g2d.setPaint(Color_Map.pedestrian_color.getColor());
 						g2d.fill(figure);
 						break;					
 					case "residential"  :
 						g2d.setPaint(Color_Map.residential_color.getColor());
 						g2d.fill(figure);
-						break;					
+						break;*/					
 					case "unclassified":
 						g2d.setPaint(Color_Map.tertiary_color.getColor());
 						g2d.fill(figure);
@@ -329,7 +331,6 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 				switch (tag) {
 				case "name":
 					AffineTransform old = g2d.getTransform(); // sert pour remettre la rotation du graphique a 0
-					// String sub = value.substring(0,value.length()-r);
 					if (getDistance(n1, n2) >= g2d.getFontMetrics(f).stringWidth(value)) {
 						displayName(g2d, w, figure, n1, n2);
 					}
@@ -340,7 +341,86 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		}
 	}
 	
-	public void imagePI(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
+	public void afficherAllPI() {
+		GeneralPath figure = new GeneralPath();
+		for (int wi = 0; wi < p.getNodes().size(); wi++) {
+			n1 = p.getNodes().get(wi);
+			figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
+			imagePI(g2d, n1, figure);
+
+		}
+	}
+
+	
+	public void afficherPI(String PI) {
+		GeneralPath figure = new GeneralPath();
+		for (int wi = 0; wi < p.getNodes().size(); wi++) {
+			n1 = p.getNodes().get(wi);
+			figure.moveTo(getPosition(n1.getLat(), 'x'), getPosition(n1.getLon(), 'y'));
+			imagePI(g2d, n1, figure, PI);
+
+		}
+	}
+	
+	public void imagePI(Graphics2D g2d, Node n, GeneralPath figure) {
+		Image img;
+		for (int i = 0; i < n.getTagSize()-1; i++) {
+			tag = n.getTag(i);
+			value = n.getValue(i);
+			try {		
+				img = ImageIO.read(new File("img/point_interet/" + tag + "/" + value + ".png"));
+				g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'), (int) getPosition(n.getLon(), 'y'), 15,15, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+			}
+		}
+	}
+	
+	public void imagePI(Graphics2D g2d, Node n, GeneralPath figure, String PI) {
+		Image img;
+		for (int i = 0; i < n.getTagSize()-1; i++) {
+			tag = n.getTag(i);
+			value = n.getValue(i);
+			switch(tag) {
+			case "amenity" :
+				if (value.equals(PI)) {
+					try {
+						img = ImageIO.read(new File("img/point_interet/" + tag + "/" + value + ".png"));
+						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'), (int) getPosition(n.getLon(), 'y'), 15,15, this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
+					}
+				}
+				break;
+			case "shop" :
+				if (value.equals(PI)) {
+					try {
+						img = ImageIO.read(new File("img/point_interet/" + tag + "/" + value + ".png"));
+						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'), (int) getPosition(n.getLon(), 'y'), 15,15, this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
+					}
+				}
+				break;
+			case "highway" :
+				if (value.equals(PI)) {
+					try {
+						img = ImageIO.read(new File("img/point_interet/" + tag + "/" + value + ".png"));
+						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'), (int) getPosition(n.getLon(), 'y'), 15,15, this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
+					}
+				}
+				break;
+			}
+		}
+	}
+	
+	/*public void imagePI(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
 		Image img;
 		for (int i = 0; i < w.getTagSize()-1; i++) {
 			tag = w.getTag(i);
@@ -355,7 +435,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 				}
 			}
 		}
-	}
+	}*/
 
 	public Dessin getAncestor() {
 		return this.ancestor;

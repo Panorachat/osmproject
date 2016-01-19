@@ -9,11 +9,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import map.Surface;
+
 
 public class SelectForm extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private Dessin ancestor;
+	private  Dessin ancestor;
 	private JCheckBox[] cb;
 	private final int maxCB = 5;
 
@@ -26,8 +28,8 @@ public class SelectForm extends JPanel{
 		cb[0] = new JCheckBox("Parkings");
 		cb[1] = new JCheckBox("Restaurants");
 		cb[2] = new JCheckBox("Cafés");
-		cb[3] = new JCheckBox("Écoles");
-		cb[4] = new JCheckBox("Universités");
+		cb[3] = new JCheckBox("Boulangeries");
+		cb[4] = new JCheckBox("Tout");
 
 		for(int i=0;i<maxCB;i++){
 			cb[i].addActionListener(new StateListener());
@@ -45,7 +47,7 @@ public class SelectForm extends JPanel{
 			switch(((JCheckBox)e.getSource()).getText()){
 				case "Parking":
 					if(((JCheckBox)e.getSource()).isSelected()){
-						//Afficher 
+						//afficherPI("Parking"); 
 					}else {
 						//Masquer 
 					}
@@ -64,14 +66,14 @@ public class SelectForm extends JPanel{
 						//Masquer 
 					}
 				break;
-				case "Écoles":
+				case "Boulangerie":
 					if(((JCheckBox)e.getSource()).isSelected()){
 						//Afficher 
 					}else {
 						//Masquer 
 					}
 				break;
-				case "Universités":
+				case "Tout":
 					if(((JCheckBox)e.getSource()).isSelected()){
 						//Afficher 
 					}else {
