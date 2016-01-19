@@ -44,7 +44,15 @@ public class SelectForm extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - État : " + ((JCheckBox)e.getSource()).isSelected());
-			switch(((JCheckBox)e.getSource()).getText()){
+			for(int i=0;i<maxCB;i++){
+				if(cb[i].isSelected()){
+					//afficherPI(((JCheckBox)e.getSource()).getText());
+				}
+				else{
+					//masquer
+				}
+			}
+			/*switch(((JCheckBox)e.getSource()).getText()){
 			case "Parking":
 				if(((JCheckBox)e.getSource()).isSelected()){
 					//afficherPI("Parking"); 
@@ -75,18 +83,12 @@ public class SelectForm extends JPanel{
 				break;
 			case "Tout":
 				if(((JCheckBox)e.getSource()).isSelected()){
-					for(int i=0;i<maxCB-1;i++){
-						cb[i].setEnabled(false);
-					}
 					//Afficher
 				}else {
-					for(int i=0;i<maxCB-1;i++){
-						cb[i].setEnabled(true);
-					}
 					//Masquer 
 				}
 				break;
-			}
+			}*/
 		}
 	}
 }
