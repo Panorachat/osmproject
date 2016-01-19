@@ -52,7 +52,8 @@ public class SelectForm extends JPanel implements ActionListener{
 			switch(((JCheckBox)e.getSource()).getText()){
 			case "Parking":
 				if(((JCheckBox)e.getSource()).isSelected()){
-					this.ancestor.getMap().afficherPI("Parking"); 
+					this.ancestor.getMap().repaint();
+					this.ancestor.getMap().afficherPI("parking");
 				}else {
 					//Masquer 
 				}

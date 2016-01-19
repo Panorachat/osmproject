@@ -45,7 +45,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	private Point mouseClick = new Point(this.getWidth()/2, this.getHeight()/2);
 	private Point mouseReleased = new Point(this.getWidth()/2, this.getHeight()/2);
 	private AffineTransform transformer;
-	
+	Graphics2D g2d;
 	private boolean needRepaint = true;
 	
 	int r=0;//Nombre de murs
@@ -131,7 +131,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 	}
 	
 	public void initMap(Graphics g){
-		Graphics2D g2d = (Graphics2D) g.create();
+		g2d = (Graphics2D) g.create();
 		g2d.setPaint(ColorMap.background_color.getColor());
 		g2d.fillRect(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -213,12 +213,12 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 				figure.moveTo(getPosition(n2.getLat(), 'x'), getPosition(n2.getLon(), 'y'));
 
 				g2d.setPaint(Color.black);
-				imagePI(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
 				nameWay(g2d, p.getWays().get(wi), figure, n1, n2, r, f);
 				g2d.setStroke(s);
 				r++;
 			}
 		}
+
 		repaint(0, 0, this.ancestor.getWidth() - 200, this.ancestor.getHeight());
 		
 		//Mise en place de l'interface utilisateur
@@ -339,19 +339,92 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 		}
 	}
 	
-	public void imagePI(Graphics2D g2d, Way w, GeneralPath figure, Node n1, Node n2, int r, Font f) {
+
+	public void afficherAllPI() {
+		GeneralPath figure = new GeneralPath();
+		for (int wi = 0; wi < p.getNodes().size(); wi++) {
+			n1 = p.getNodes().get(wi);
+			figure.moveTo(getPosition(n1.getLat(), 'x'),
+					getPosition(n1.getLon(), 'y'));
+			imagePI(g2d, n1, figure);
+		}
+	}
+
+	public void afficherPI(String PI) {
+		GeneralPath figure = new GeneralPath();
+		for (int wi = 0; wi < p.getNodes().size(); wi++) {
+			n1 = p.getNodes().get(wi);
+			figure.moveTo(getPosition(n1.getLat(), 'x'),
+					getPosition(n1.getLon(), 'y'));
+			imagePI(g2d, n1, figure, PI);
+		}
+	}
+
+	public void imagePI(Graphics2D g2d, Node n, GeneralPath figure) {
 		Image img;
-		for (int i = 0; i < w.getTagSize()-1; i++) {
-			tag = w.getTag(i);
-			value = w.getValue(i);
-			if (tag == "amenity") {
-				try {
-					img = ImageIO.read(new File("img/point_interet/" + tag + "/" + value + ".png"));
-					g2d.drawImage(img, (int) getPosition(n1.getLat(), 'x'), (int) getPosition(n1.getLon(), 'y'), 16, 16, this);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		for (int i = 0; i < n.getTagSize() - 1; i++) {
+			tag = n.getTag(i);
+			value = n.getValue(i);
+			try {
+				img = ImageIO.read(new File("img/point_interet/" + tag + "/"
+						+ value + ".png"));
+				g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
+						(int) getPosition(n.getLon(), 'y'), 15, 15, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+			}
+		}
+	}
+
+	public void imagePI(Graphics2D g2d, Node n, GeneralPath figure, String PI) {
+		Image img;
+		for (int i = 0; i < n.getTagSize() - 1; i++) {
+			tag = n.getTag(i);
+			value = n.getValue(i);
+			switch (tag) {
+			case "amenity":
+				if (value.equals(PI)) {
+					try {
+						img = ImageIO.read(new File("img/point_interet/" + tag
+								+ "/" + value + ".png"));
+						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
+								(int) getPosition(n.getLon(), 'y'), 15, 15,
+								this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
+					}
 				}
+				break;
+			case "shop":
+				if (value.equals(PI)) {
+					try {
+						img = ImageIO.read(new File("img/point_interet/" + tag
+								+ "/" + value + ".png"));
+						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
+								(int) getPosition(n.getLon(), 'y'), 15, 15,
+								this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
+					}
+				}
+				break;
+			case "highway":
+				if (value.equals(PI)) {
+					try {
+						img = ImageIO.read(new File("img/point_interet/" + tag
+								+ "/" + value + ".png"));
+						g2d.drawImage(img, (int) getPosition(n.getLat(), 'x'),
+								(int) getPosition(n.getLon(), 'y'), 15, 15,
+								this);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
+					}
+				}
+				break;
 			}
 		}
 	}
